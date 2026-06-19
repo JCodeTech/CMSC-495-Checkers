@@ -16,6 +16,12 @@ A Java implementation of the classic Checkers game, featuring both Human vs. Hum
 
 This project is a Java-based implementation of Checkers.
 
+# Dependencies
+* Project is utilizing openjdk-26 (JDK 26 equivalent)
+* To work on this project and ensuring compatibility, utilize primarily JDK 26 
+* You may use equivalent versions of the JDK.
+* Communicate with other collaborators about which development kit you are using to prevent compatibility issues. 
+
 # Core Game Logic (Pseudocode)
 
 The following pseudocode outlines the primary execution flow of the game:
@@ -55,3 +61,14 @@ While the game is active:
 * `GameRules`: Contains the logic for movement, captures, and victory conditions.
 * `AI`: Implements decision-making algorithms for the computer opponent.
 * `Window`: The graphical user interface (GUI) component for rendering the game.
+
+# Documentation
+* The following documentations are provided:
+
+1. [Project Plan](docs/Project%20Plan%20Group%202.docx)
+2. [Prject Desgin](https://umuc365-my.sharepoint.com/:w:/g/personal/aegan5_student_umgc_edu/IQCuFd91cb-LQbvmqr_lN_k2AUE18jf4C8Lm0Ocm2mhyIjs?e=529nh5) Due ***June 26th 2026***
+3. [Phase I Source]() TO BE IMPLEMENTED - ***June 24th 2026***
+4. [Test Plan]() TO BE IMPLEMENTED - Due ***July 8th 2026***
+5. [Phase II Source]() TO BE IMPLEMENTED - Due ***July 15th 2026***
+6. [User Guide]() TO BE IMPLEMENTED - Due ***July 22nd 2026***
+7. [Final Document]() TO BE IMPLEMENTED - Due ***August 4th 2026***
