@@ -66,7 +66,7 @@ While the game is active:
 * The following documentations are provided:
 
 1. [Project Plan](docs/Project%20Plan%20Group%202.docx)
-2. [Prject Desgin](https://umuc365-my.sharepoint.com/:w:/g/personal/aegan5_student_umgc_edu/IQCuFd91cb-LQbvmqr_lN_k2AUE18jf4C8Lm0Ocm2mhyIjs?e=529nh5) Due ***June 26th 2026***
+2. [Project Design](https://umuc365-my.sharepoint.com/:w:/g/personal/aegan5_student_umgc_edu/IQCuFd91cb-LQbvmqr_lN_k2AUE18jf4C8Lm0Ocm2mhyIjs?e=529nh5) Due ***June 26th 2026***
 3. [Phase I Source]() TO BE IMPLEMENTED - ***June 24th 2026***
 4. [Test Plan]() TO BE IMPLEMENTED - Due ***July 8th 2026***
 5. [Phase II Source]() TO BE IMPLEMENTED - Due ***July 15th 2026***
