@@ -46,7 +46,7 @@ While the game is active:
         * If a player has no remaining pieces: Declare Winner.
         * If a player has no legal moves left: Declare Loss/Draw.
 6.  * Switch Turn: Proceed to the next player's turn.
-        * The `Controler` should keep track of who's turn it is and determine when it's the next players turn.
+        * The `Controller` should keep track of who's turn it is and determine when it's the next players turn.
 
 # Key Components
 
