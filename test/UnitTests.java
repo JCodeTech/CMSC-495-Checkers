@@ -1,3 +1,4 @@
+
 /**
  * UMGC CMSC 495
  * Illustrates incremental program development
@@ -7,6 +8,11 @@
  * JavaJDK - 26
  */
 
+import com.game.objects.Board;
+import com.game.objects.Checker;
+import com.game.util.GameException;
+
+import java.awt.*;
 import java.io.IOException;
 
 public class UnitTests {
