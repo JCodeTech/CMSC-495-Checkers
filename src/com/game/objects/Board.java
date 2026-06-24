@@ -1,3 +1,5 @@
+package com.game.objects;
+
 /**
  * UMGC CMSC 495
  * Illustrates incremental program development
@@ -53,35 +55,8 @@ public class Board {
 		}
 	}
 
-	// moveChecker: A checker piece at a specific location can be moved to another valid location.
-	// A valid location to move is marked by a one in the 2D array board.
-	public void moveChecker(int pieceRow, int pieceColumn, int destinationRow, int destinationColumn)
-			throws GameException{
-		Checker currentChecker = checkerBoard[pieceRow][pieceColumn];
-
-		if (currentChecker != null && board[destinationRow][destinationColumn] == 1) {
-			checkerBoard[destinationRow][destinationColumn] = currentChecker;
-			checkerBoard[pieceRow][pieceColumn] = null;
-		} else {
-			throw new GameException("Cannot move Checker piece to invalid location or checker piece does not exist.");
-		}
-	}
-
-
-	// Makes a checker piece into a king piece.
-	public void checkerKing(int pieceRow, int pieceColumn) {
-		checkerBoard[pieceRow][pieceColumn].checkerKing();
-	}
-
-	public Checker getTile(int row, int column) {
-		return checkerBoard[row][column];
-	}
-
 	public int[][] getBoard() {
 		return board;
 	}
 
-	public Checker[][] getCheckersPlacement(){
-		return checkerBoard;
-	}
 }
