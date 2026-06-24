@@ -1,3 +1,4 @@
+package com.game.util;
 /**
  * UMGC CMSC 495
  * Illustrates incremental program development
