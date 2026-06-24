@@ -1,3 +1,7 @@
+package com.game.objects;
+
+import java.awt.*;
+
 /**
  * UMGC CMSC 495
  * Illustrates incremental program development
@@ -31,4 +35,18 @@ public class Checker {
 	public String toString() {
 		return "" + color;
 	}
+
+	public Checker[][] getCheckersPlacement(){
+		return checkerBoard;
+	}
+
+	public Checker getTile(int row, int column) {
+		return checkerBoard[row][column];
+	}
+
+	// Makes a checker piece into a king piece.
+	public void checkerKing(int pieceRow, int pieceColumn) {
+		checkerBoard[pieceRow][pieceColumn].checkerKing();
+	}
+
 }
