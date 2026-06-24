@@ -1,3 +1,5 @@
+package com.game.util;
+
 /**
  * UMGC CMSC 495
  * Illustrates incremental program development
@@ -7,6 +9,7 @@
  * JavaJDK - 26
  */
 
+// Comment (Joseph Romano) - We may not even need this class. We probably will handle the color as in the player / Checker class. Though rendering the actual color may require this class.
 public class Color {
 
 	String color;
