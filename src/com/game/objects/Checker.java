@@ -15,9 +15,11 @@ public class Checker {
 
 	private boolean isKing = false;
 	private Color color;
+	private int[] placement;
 
-	public Checker (String color) {
+	public Checker (String color, int[] placement) {
 		this.color = new Color(color);
+		this.placement = placement;
 	}
 
 	public void checkerKing() {
@@ -36,10 +38,11 @@ public class Checker {
 		return "" + color;
 	}
 
-	public Checker[][] getCheckersPlacement(){
-		return checkerBoard;
+	public int[] getCheckersPlacement(){
+		return placement;
 	}
 
+	// Note from Alexander: I think with the adjustments I made to the getCheckersPlacement, we can say this method is deprecated and remove it.
 	public Checker getTile(int row, int column) {
 		return checkerBoard[row][column];
 	}
