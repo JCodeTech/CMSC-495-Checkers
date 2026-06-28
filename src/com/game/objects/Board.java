@@ -1,14 +1,11 @@
-package com.game.objects;
-
 /**
  * UMGC CMSC 495
- * Illustrates incremental program development
- * Class Checker - Class that stores the current state of the checkerboard. The board can be updated as needed.
- * @author Alexander Egan
- * Date: June 22, 2026
+ * Developers: Joseph Romano, Alexander Egan
+ * Date: June 2026
  * JavaJDK - 26
  */
 
+package com.game.objects;
 
 public class Board {
 
@@ -27,6 +24,9 @@ public class Board {
 			{0,1,0,1,0,1,0,1},
 	};
 
+	// This will be called in main or controller class to set up the board.
+	// DO NOT CREATE BOARD OBJECTS WITHIN OTHER GAME OBJECTS.
+	// This will only be ran once per game.
 	public Board(){
 		setBoard();
 	}
@@ -49,7 +49,15 @@ public class Board {
 		}
 	}
 
+	// This will be used in the GUI implementation.
+	// This returns the state of the board.
+	// This will assist in rendering the board.
+	// Can be used to check win / lose / draw conditions, but I may have a different way of doing that.
 	public Checker[][] getBoard() {
+		// Note: For now, this is acceptable to return the actual reference to the board.
+		// However, if external methods modify the board, it will modify the actual board. So keep this in mind if this is our intention.
+		// We may have to make a copy of the board and return that instead.
+		// For now, this is fine.  All board modifications will be handled in this class.
 		return checkerBoard;
 	}
 
