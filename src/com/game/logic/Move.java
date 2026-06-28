@@ -18,24 +18,27 @@ public class Move {
         this.fromCol = fromCol;
         this.toRow = toRow;
         this.toCol = toCol;
-        this.isCapture = Math.abs(fromRow - toRow) == 2; // Capture detection
     }
 
     public boolean isValid(Board board, Player player) {
         return validateDirection(board, player)
-            && validateStepSize()
-            && (isCapture ? validateCapture(board, player) : true);
+            && validateStepSize();
     }
 
-    private boolean validateDirection(Board board, Player player) {
-        int rowDiff = toRow - fromRow;
-        String color = player.getColor();
+    private boolean validateDirection(Checker piece) {
 
-        if ("RED".equals(color)) {
-            return rowDiff > 0; // Red moves forward
-        } else { // BLACK must move backward
-            return rowDiff < 0;
+        // for non king pieces.
+        if (!piece.isKing()) {
+            int rowDiff = toRow - fromRow;
+            String color = piece.getColor();
+
+            if ("RED".equals(color)) {
+                return rowDiff > 0; // Red moves forward
+            } else { // BLACK must move backward
+                return rowDiff < 0;
+            }
         }
+
     }
 
     private boolean validateStepSize() {
@@ -44,19 +47,14 @@ public class Move {
                (Math.abs(fromRow - toRow) == 2 && colDiff == 2);
     }
 
-    private boolean validateCapture(Board board, Player player) {
-        if (!isCapture) return false;
+    public void moveChecker(int fromRow, int fromCol, int toRow, int toCol ){
 
-        int captureRow = (fromRow + toRow) / 2;
-        int captureCol = (fromCol + toCol) / 2;
-
-        Piece capturedPiece = board.getPiece(captureRow, captureCol);
-        return capturedPiece != null &&
-               !player.getColor().equals(capturedPiece.getColor());
     }
 
-    public void execute(Board board) {
-        if (!isValid(board, player)) throw new IllegalStateException("Invalid move");
-        // Board logic to update positions
+    public boolean validateCaptureMove(int startRow, int startCol, int endRow, int endCol) {
+        // Check if move is diagonal capture (e.g., 1 row/col difference)
+        return Math.abs(endRow - startRow) == 2 &&
+                Math.abs(endCol - startCol) == 2 &&
+                !isPositionEmpty((startRow + endRow)/2, (startCol + endCol)/2);
     }
 }
