@@ -10,6 +10,7 @@ Modified By (list):
 public class Player {
     private String color; // "RED" or "BLACK"
     private int Pieces;
+    private boolean isHuman; // true if human player, false if AI player
 
     public Player(String color) {
         this.color = color;
