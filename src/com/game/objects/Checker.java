@@ -1,17 +1,12 @@
-package com.game.objects;
-
-import java.awt.*;
-
 /**
  * UMGC CMSC 495
- * Illustrates incremental program development
- * Class Checker - Class that stores information about a single piece on the checkerboard.
- * @author Alexander Egan
- * Date: June 22, 2026
+ * Developers: Joseph Romano, Alexander Egan
+ * Date: June 2026
  * JavaJDK - 26
- *
- * Modified By Romano, Joseph on 06/24/2026
  */
+
+package com.game.objects;
+
 
 public class Checker {
 
