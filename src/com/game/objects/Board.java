@@ -12,9 +12,11 @@ package com.game.objects;
 
 public class Board {
 
+	private Checker[][] checkerBoard;
+
 	// 1 represents a space a checker piece can be placed.
 	// 0 represents a space that a checker piece cannot be placed.
-	int[][] board = {
+	int[][] validBoardSpaces = {
 			{1,0,1,0,1,0,1,0},
 			{0,1,0,1,0,1,0,1},
 			{1,0,1,0,1,0,1,0},
@@ -25,8 +27,6 @@ public class Board {
 			{0,1,0,1,0,1,0,1},
 	};
 
-	Checker[][] checkerBoard = new Checker[8][8];
-
 	public Board(){
 		setBoard();
 	}
@@ -35,28 +35,29 @@ public class Board {
 	// Black pieces are set at the top of the 2D array (rows 0-2).
 	// Red pieces are set at the bottom of the 2D array (rows 5-7).
 	public void setBoard() {
-		for (int i = 0; i < 8; i++) {
-			for (int x = 0; x < 8; x++) {
-				if (i % 2 == 0 && x % 2 == 0) {
+		checkerBoard = new Checker[8][8];
+		for(int i = 0; i < 8; i++) {
+			for(int j = 0; j < 8; j++) {
+				if (validBoardSpaces[i][j] == 1) {
 					if (i < 3) {
-						checkerBoard[i][x] = new Checker("Black");
-					} else if (i > 4) {
-						checkerBoard[i][x] = new Checker("Red");
-					}
-				}
-				if (i % 2 == 1 && x % 2 == 1) {
-					if (i < 3) {
-						checkerBoard[i][x] = new Checker("Black");
-					} else if (i > 4) {
-						checkerBoard[i][x] = new Checker("Red");
+						checkerBoard[i][j] = new Checker("Black", false);
+					} else if (i >= 5) {
+						checkerBoard[i][j] = new Checker("Red", false);
 					}
 				}
 			}
 		}
 	}
 
-	public int[][] getBoard() {
-		return board;
+	public Checker[][] getBoard() {
+		return checkerBoard;
+	}
+
+	// Whenever a checker is captured, this method will be called to clear that space.
+	public void clearPosition(int row, int col) {
+		if (row >= 0 && row < 8 && col >= 0 && col < 8) {
+			checkerBoard[row][col] = null;
+		}
 	}
 
 }
