@@ -13,10 +13,11 @@ public class Player {
     private int Pieces;
     private boolean isHuman; // true if human player, false if AI player
 
-    public Player(String playerName, String color) {
+    public Player(String playerName, String color, boolean isHuman) {
         this.name = "Player"; // Default name, will be changed when a new player is created. i.e. "Player " + 1 or 2
         this.color = color; // Red or Black
         this.Pieces = 0; // When the board is set up the count is handled in that class via Player player1.addChecker.
+        this.isHuman = isHuman;
     }
 
     // Used to remove a checker from total checker count for that player when captured.
