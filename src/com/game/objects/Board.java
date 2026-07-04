@@ -28,13 +28,13 @@ public class Board {
 	// DO NOT CREATE BOARD OBJECTS WITHIN OTHER GAME OBJECTS.
 	// This will only be ran once per game.
 	public Board(){
-		setBoard();
+		// Set board will be handled separately instead of being called automatically as soon as a board object is created.
 	}
 
 	//Sets the Checkerboard to a start of game state.
 	// Black pieces are set at the top of the 2D array (rows 0-2).
 	// Red pieces are set at the bottom of the 2D array (rows 5-7).
-	public void setBoard() {
+	public void newGame() { // Renamed function to newGame from setBoard. setBoard() will be used to set up certain test cases.
 		checkerBoard = new Checker[8][8];
 		for(int i = 0; i < 8; i++) {
 			for(int j = 0; j < 8; j++) {
@@ -47,6 +47,11 @@ public class Board {
 				}
 			}
 		}
+	}
+
+	// Function used for testing or possibly creating scenarios.
+	public void setBoard(String color, boolean isKing, int row, int col, Checker[][] scenorioBoard){
+		scenorioBoard[row][col] = new Checker(color, isKing);
 	}
 
 	// This will be used in the GUI implementation.
@@ -65,6 +70,13 @@ public class Board {
 	public void clearPosition(int row, int col) {
 		if (row >= 0 && row < 8 && col >= 0 && col < 8) {
 			checkerBoard[row][col] = null;
+		}
+	}
+
+	// Whenever a checker makes it to the opponents side.
+	public void promoteToKing(int row, int col) {
+		if (checkerBoard[row][col] != null) {
+			checkerBoard[row][col].setCheckerKing();
 		}
 	}
 
