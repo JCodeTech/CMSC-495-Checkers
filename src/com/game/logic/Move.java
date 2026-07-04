@@ -48,42 +48,91 @@ public class Move {
         * If move is not on top of another checker.
      */
 
-    // TODO: Validate that source position contains a piece
-    // TODO: Validate that the piece belongs to the current player
-    // TODO: Validate that destination position is within board bounds
-    // TODO: Validate that destination position is empty (no piece already there)
-    // TODO: Validate correct move direction for king checker (forward and backward)
-    // TODO: Validate single step move or capture move
-    // TODO: Validate capture move logic (jumping over opponent piece)
-    // TODO: Validate that pieces are actually captured and removed from board
     // TODO: Validate that a player must capture if possible
 
+    // We can use this method to highlight every valid space, but we need to have it return the boolean for each if condition.
     public boolean validateMove(Board board, Player player) throws GameException {
         Checker[][] currentBoard = board.getBoard(); // Gets the current state of the board
-        Checker piece = currentBoard[fromRow][fromCol]; // Gets the piece at from position
+        Checker fromSpace = currentBoard[fromRow][fromCol]; // Gets the fromSpace at from position
+        Checker toSpace = currentBoard[toRow][toCol]; // Gets the square the mouse clicked on
+
+        final int difRow = Math.abs(toRow - fromRow);
+        final int difCol = Math.abs(toCol - fromCol);
+
+        // Validations of Capture Moves
+        if (difCol == 2 && difRow == 2){
+            isCapture = true;
+
+            // Find the middle position that should contain the opponent piece
+            int midRow = fromRow + (toRow - fromRow) / 2; // Gets coordinates of middle space for Row
+            int midCol = fromCol + (toCol - fromCol) / 2; // Gets coordinates of middle space for Column
+            Checker midSpace = currentBoard[midCol][midRow]; // Sets the calculated mid-section between move to variable.
+
+            // Check if the middle piece belongs to the opponent
+            if (midSpace.getColor().equals(player.getColor())) {
+                throw new GameException("Cannot capture your own piece.");
+            }
+
+            // Check if there's a piece at the middle position
+            if (midSpace == null) {
+                throw new GameException("Invalid capture move. No piece to capture.");
+            }
+        }
+
+        if (difCol > 2 || difRow > 2){
+            throw new GameException("Pieces can only move one to two spaces diagonally.");
+        }
+
+        // Checks if move is diagonal (Must implement further checks if we implement multiple moves in one validation for multiple captures)
+        if (fromCol == toCol){
+            throw new GameException("Invalid move. You must move your pieces diagonally.");
+        }
 
         // If player does not click on a checker when mouse event is called.
-        if (currentBoard[fromRow][fromCol] == null) {
+        if (fromSpace == null) {
             throw new GameException("You did not click on a checker.");
         }
 
-        // Check if piece belongs to the player
-        if (!piece.getColor().equals(player.getColor())) {
-            throw new GameException("Cannot move opponent's piece");
+        // Checks to see if destination is empty.
+        if (toSpace != null) {
+            throw new GameException("You must choose an empty spot.");
         }
 
-        // Checks if the current piece is moving to a valid position (within bounds)
+        // Check if fromSpace belongs to the player
+        if (!fromSpace.getColor().equals(player.getColor())) {
+            throw new GameException("Cannot move opponent's fromSpace");
+        }
+
+        // Checks if the current fromSpace is moving to a valid position (within bounds)
         if (toRow < 0 || toRow > 7 || toCol < 0 || toCol > 7) {
             throw new GameException("Invalid move. Position is out of bounds.");
         }
-        if (player.getColor().equals("Red") && !piece.isKing() && currentBoard[toRow][toCol] != null && toRow > fromRow){
+
+        // Ensures that the destination of a fromSpace is accordance with the allowed move direction.
+        if (player.getColor().equals("Red") && !fromSpace.isKing() && toSpace != null && toRow > fromRow){
             throw new GameException("Invalid move. Non-Kinged Red pieces can only move up the board.");
         }
 
-        if (player.getColor().equals("Black") && !piece.isKing() && currentBoard[toRow][toCol] != null && toRow < fromRow){
+        // Ensures that the destination of a fromSpace is accordance with the allowed move direction.
+        if (player.getColor().equals("Black") && !fromSpace.isKing() && toSpace != null && toRow < fromRow){
             throw new GameException("Invalid move. Non-Kinged Red pieces can only move up the board.");
         }
+
 
         return true;
     }
+
+    // Method to move a checker from one position to another
+    public void moveChecker(int fromRow, int fromCol, int toRow, int toCol, Board board) {
+        Checker[][] checkerBoard = board.getBoard(); // Gets the current state of the board
+        // Get the checker from source position
+        Checker piece = checkerBoard[fromRow][fromCol];
+
+        // Remove piece from source position (set to null)
+        checkerBoard[fromRow][fromCol] = null;
+
+        // Place piece at destination position
+        checkerBoard[toRow][toCol] = piece;
+    }
+
 }
