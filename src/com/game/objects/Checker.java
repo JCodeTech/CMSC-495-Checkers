@@ -12,7 +12,7 @@ public class Checker {
 
 	// Variables that this class will need
 	private final String color;
-	private boolean isKing = false;
+	private boolean isKing;
 
 	public Checker (String color, boolean isKing) {
 		this.color = color;
