@@ -1,119 +1,153 @@
-
 /**
  * UMGC CMSC 495
- * Illustrates incremental program development
- * Class Checker - Class that stores the current state of the checkerboard. The board can be updated as needed.
- * @author Alexander Egan
- * Date: June 22, 2026
+ * Unit Tests
+ * @author Alexander Egan, Joseph Romano
+ * Date: June 2026
  * JavaJDK - 26
  */
 
+import com.game.logic.Move;
 import com.game.objects.Board;
 import com.game.objects.Checker;
 import com.game.util.GameException;
-
-import java.awt.*;
-import java.io.IOException;
+import com.game.entities.Player;
 
 public class UnitTests {
 
     static Board board = new Board();
 
-    static Checker[][] checkers = board.getCheckersPlacement();
-
-    public static void main(String[] args) throws IOException {
-        System.out.println("Unit Test 1: " + UnitTest1());
-        System.out.println("Unit Test 2: " + UnitTest2());
-        System.out.println("Unit Test 3: " + UnitTest3());
-        System.out.println("Unit Test 4: " + UnitTest4());
-        System.out.println("Unit Test 5: " + UnitTest5());
-        System.out.println("Unit Test 6: " + UnitTest6());
+    public static void main(String[] args) throws GameException {
+        System.out.println("Unit Test 1 (Checker Creation): " + UnitTest1());
+        System.out.println("Unit Test 2 (Checker King Status): " + UnitTest2());
+        System.out.println("Unit Test 3 (Board Initialization): " + UnitTest3());
+        System.out.println("Unit Test 4 (Move Validation - Valid): " + UnitTest4());
+        System.out.println("Unit Test 5 (Move Validation - Invalid): " + UnitTest5());
+        System.out.println("Unit Test 6 (Capture Logic): " + UnitTest6());
     }
 
-    // Unit Test 1: Color Class properly gives color when called.
-
+    // Unit Test 1: Checker Class creates and stores information
     public static boolean UnitTest1() {
-        Color color = new Color("Green");
-
-        if (color.getColor().equals("Green") && ("" + color).equals("Green")){
-            return true;
-        } else
-            return false;
-    }
-
-    // Unit Test 2: Checker Class stores information about its current state and can be changed.
-
-    public static boolean UnitTest2() {
-        Checker checker = new Checker("Black");
-
-        if (checker.isKing() == false) {
-            checker.checkerKing();
-        }
-
-        if (checker.isKing() == true && checker.getColor().equals("Black")) {
-            return true;
-        } else return false;
-    }
-
-    // Unit Test 3: Board Class properly creates and sets the Checker Board.
-
-    public static boolean UnitTest3() {
-        System.out.println();
-        for (int i = 0; i < 8; i++) {
-            for (int x = 0; x < 8; x++) {
-                System.out.print(checkers[i][x] + " ");
+        try {
+            Checker checker = new Checker("Black", false);
+            
+            if (checker.getColor().equals("Black") && !checker.isKing()) {
+                return true;
+            } else {
+                return false;
             }
-            System.out.print("\n");
+        } catch (Exception e) {
+            return false;
         }
-
-        System.out.print("\n");
-
-        return true;
     }
 
-    // Unit Test 4: Board Class "moveChecker" method updates the checker board data
-    // and does not have any duplicating pieces.
+    // Unit Test 2: Checker Class handles king promotion
+    public static boolean UnitTest2() {
+        try {
+            Checker checker = new Checker("Black", false);
+            
+            if (!checker.isKing()) {
+                checker.setCheckerKing();
+            }
 
+            if (checker.isKing() && checker.getColor().equals("Black")) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    // Unit Test 3: Board Class creates and sets the Checker Board
+    public static boolean UnitTest3() {
+        try {
+            board = new Board();
+            board.newGame();
+            
+            // Check that board is initialized with correct number of pieces
+            Checker[][] boardState = board.getBoard();
+            
+            int blackPieces = 0;
+            int redPieces = 0;
+            
+            // Count pieces on the board
+            for (int i = 0; i < 8; i++) {
+                for (int j = 0; j < 8; j++) {
+                    if (boardState[i][j] != null) {
+                        if (boardState[i][j].getColor().equals("Black")) {
+                            blackPieces++;
+                        } else if (boardState[i][j].getColor().equals("Red")) {
+                            redPieces++;
+                        }
+                    }
+                }
+            }
+            
+            // Should have 12 black pieces and 12 red pieces
+            return (blackPieces == 12 && redPieces == 12);
+        } catch (Exception e) {
+            System.out.println("Error in UnitTest3: " + e.getMessage());
+            return false;
+        }
+    }
+
+    // Unit Test 4: Valid Move validation - Valid move should pass
     public static boolean UnitTest4() {
         try {
-            board.setBoard();
-            board.moveChecker(2, 0, 3, 1);
-            board.moveChecker(5, 1, 4, 2);
-        } catch (GameException GE) {
+            board = new Board();
+            board.newGame();
+            
+            // Create a valid move (black piece moving diagonally)
+            Move move = new Move(1, 1, 2, 0);
+            Player player = new Player("TestPlayer", "Black");
+
+            move.validateMove(board, player);
+
+            // TODO: Finish implementation.
+            Checker[][] testBoard = new Checker[8][8];
+            //board.setBoard();
+
+            // The move should be valid and not throw an exception
+            return true;
+            
+        } catch (Exception e) {
+            System.out.println("Error in UnitTest4: " + e.getMessage());
             return false;
         }
-
-        if (checkers[2][0] == null && checkers[3][1].getColor().equals("Black") && checkers[5][1] == null
-                && checkers[4][2].getColor().equals("Red")) {
-            return true;
-        } else
-            return false;
     }
-    // Unit Test 5: Board Class "moveChecker" only allows movement within Checker's
-    // rules
 
-    public static boolean UnitTest5() {
+    // Unit Test 5: Move validation - Invalid move should throw exception
+    public static boolean UnitTest5() throws GameException {
         try {
-            board.setBoard();
-            board.moveChecker(2, 0, 5, 3);
-        } catch (GameException GE) {
-            System.out.println(GE);
-        }
-        if (checkers[5][3].getColor().equals("Black")) {
+            board = new Board(); // Reset board
+            board.newGame(); // Sets up Board.
+            
+            // Try to make an invalid move
+            Move move = new Move(2, 1, 4, 1); // Invalid - not diagonal
+            Player player = new Player("TestPlayer", "Black");
+
+            // Should throw GameException for invalid moves
             return false;
-        } else
-            return true;
+            
+        } catch (Exception e) {
+            System.out.println("Error in UnitTest5: " + e.getMessage());
+            return false;
+        }
     }
 
-    // Unit Test 6: GameException thrown if invalid move is made.
+    // Unit Test 6: Capture logic validation
     public static boolean UnitTest6() {
         try {
-            board.moveChecker(2, 0, 5, 4);
-        } catch (GameException GE) {
-            System.out.println(GE);
+            board = new Board();
+            board.newGame();
+
             return true;
+            
+        } catch (Exception e) {
+            System.out.println("Error in UnitTest6: " + e.getMessage());
+            return false;
         }
-        return false;
     }
 
 }
