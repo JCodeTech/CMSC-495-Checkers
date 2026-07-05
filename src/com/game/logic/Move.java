@@ -115,7 +115,7 @@ public class Move {
 
         // Ensures that the destination of a fromSpace is accordance with the allowed move direction.
         if (player.getColor().equals("Black") && !fromSpace.isKing() && toSpace != null && toRow < fromRow){
-            throw new GameException("Invalid move. Non-Kinged Red pieces can only move up the board.");
+            throw new GameException("Invalid move. Non-Kinged Black pieces can only move up the board.");
         }
 
 
