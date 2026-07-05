@@ -1,29 +1,40 @@
 /**
  * UMGC CMSC 495
- * Unit Tests
- * @author Alexander Egan, Joseph Romano
+ * Developers: Alexander Egan, Joseph Romano
  * Date: June 2026
  * JavaJDK - 26
  */
 
+package com.game.test;
+
+import java.io.IOException;
+
+import com.game.entities.Player;
 import com.game.logic.Move;
 import com.game.objects.Board;
 import com.game.objects.Checker;
 import com.game.util.GameException;
-import com.game.entities.Player;
 
 public class UnitTests {
+	
+	static Board board = new Board();
+	static Player player = new Player("testPlay", "Black");
 
-    static Board board = new Board();
-
-    public static void main(String[] args) throws GameException {
+	public static void main(String[] args) throws IOException {
         System.out.println("Unit Test 1 (Checker Creation): " + UnitTest1());
         System.out.println("Unit Test 2 (Checker King Status): " + UnitTest2());
         System.out.println("Unit Test 3 (Board Initialization): " + UnitTest3());
-        System.out.println("Unit Test 4 (Move Validation - Valid): " + UnitTest4());
-        System.out.println("Unit Test 5 (Move Validation - Invalid): " + UnitTest5());
-        System.out.println("Unit Test 6 (Capture Logic): " + UnitTest6());
-    }
+        System.out.println("Unit Test 4 (Move Validation - Invalid Piece Movement Onto Other Piece): " + UnitTest4());
+        System.out.println("Unit Test 5 (Move Validation - Invalid Piece Capture): " + UnitTest5());
+        System.out.println("Unit Test 6 (Move Validation - Invalid Move Range): " + UnitTest6());
+        System.out.println("Unit Test 7 (Move Validation - Invalid Vertical and Horizontal Move): " + UnitTest7());
+        System.out.println("Unit Test 8 (Move Validation - Invalid Board Range): " + UnitTest8());
+        System.out.println("Unit Test 9 (Move Validation - Invalid Piece Selection): " + UnitTest9());
+        System.out.println("Unit Test 10 (Move Validation - Invalid Capture): " + UnitTest10());
+        System.out.println("Unit Test 11 (Move Validation - Invalid Backwards Movement): " + UnitTest11());
+        System.out.println("Unit Test 12 (Valid Capture): " + UnitTest12());
+        System.out.println("Unit Test 13 (Valid Move): " + UnitTest13());
+	}
 
     // Unit Test 1: Checker Class creates and stores information
     public static boolean UnitTest1() {
@@ -58,7 +69,7 @@ public class UnitTests {
             return false;
         }
     }
-
+    
     // Unit Test 3: Board Class creates and sets the Checker Board
     public static boolean UnitTest3() {
         try {
@@ -91,63 +102,151 @@ public class UnitTests {
             return false;
         }
     }
-
-    // Unit Test 4: Valid Move validation - Valid move should pass
+	
+    // Unit Test 4: Checks logic for moving one piece onto another.
     public static boolean UnitTest4() {
-        try {
-            board = new Board();
-            board.newGame();
-            
-            // Create a valid move (black piece moving diagonally)
-            Move move = new Move(1, 1, 2, 0);
-            Player player = new Player("TestPlayer", "Black");
+    	Move move1 = new Move(0, 0, 1, 1);
 
-            move.validateMove(board, player);
-
-            // TODO: Finish implementation.
-            Checker[][] testBoard = new Checker[8][8];
-            //board.setBoard();
-
-            // The move should be valid and not throw an exception
-            return true;
-            
-        } catch (Exception e) {
-            System.out.println("Error in UnitTest4: " + e.getMessage());
-            return false;
-        }
+		try {
+			move1.validateMove(board, player);
+			return false;
+		} catch (GameException gE){
+			System.out.println(gE);
+			return true;
+		}
     }
+    
+    // Unit Test 5: Checks logic for moving a piece as if it would capture a player's own piece.
+    public static boolean UnitTest5() {
 
-    // Unit Test 5: Move validation - Invalid move should throw exception
-    public static boolean UnitTest5() throws GameException {
-        try {
-            board = new Board(); // Reset board
-            board.newGame(); // Sets up Board.
-            
-            // Try to make an invalid move
-            Move move = new Move(2, 1, 4, 1); // Invalid - not diagonal
-            Player player = new Player("TestPlayer", "Black");
-
-            // Should throw GameException for invalid moves
-            return false;
-            
-        } catch (Exception e) {
-            System.out.println("Error in UnitTest5: " + e.getMessage());
-            return false;
-        }
+    			Move move2 = new Move(0,0,2,2);
+    			try {
+    				move2.validateMove(board, player);
+    				return false;
+    			} catch (GameException gE){
+    				System.out.println(gE);
+    				return true;
+    			}    	
     }
-
-    // Unit Test 6: Capture logic validation
+    
+    // Unit Test 6: Checks logic for attempting to move a piece more than 2 spaces.
     public static boolean UnitTest6() {
-        try {
-            board = new Board();
-            board.newGame();
+		Move move3 = new Move(0,0,4,4);
+		try {
+			move3.validateMove(board, player);
+			return false;
+		} catch (GameException gE){
+			System.out.println(gE);
+			return true;
+		}
+    }
+    
+    // Unit Test 7: Checks logic for vertical and horizontal movement.
+    public static boolean UnitTest7() {
+		// The validMove method does not check if a piece was attempted to be played in the same Row.
+		// I recommend modifying the check for if a move is diagonal to include checking rows, as any 
+		// piece that moves in Checkers changes rows and columns each time.
+	
+		Move move4 = new Move(0,0,0,1);
+		Move move5 = new Move(0,0,1,0);
+		try {
+			move4.validateMove(board, player);
+			move5.validateMove(board, player);
+			return false;
+		} catch (GameException gE){
+			System.out.println(gE);
+			return true;
+		}
+    }
+    
+    // Unit Test 8: Checks logic on how it handles values outside of the board's range.
+    public static boolean UnitTest8() {
+		// The validateMove method does not check variables before they are used for arrays.
+		// I would recommend adding a check beforehand so that negative values are handled.
+		// I do understand that this is somewhat of an edge case as with the UI negative numbers will 
+		// be unachievable.
 
-            return true;
-            
-        } catch (Exception e) {
-            System.out.println("Error in UnitTest6: " + e.getMessage());
-            return false;
-        }
+		Move move6 = new Move(0,0,-1,9);
+		try {
+			move6.validateMove(board, player);
+			return false;
+		} catch (Exception gE){
+			System.out.println(gE);
+			return true;
+		}
+    }
+    
+    // Unit Test 9: Checks logic on how it handles not selecting a checker for a move.
+    public static boolean UnitTest9() {
+		Move move7 = new Move(0,1,0,0);
+		try {
+			move7.validateMove(board, player);
+			return false;
+		} catch (Exception gE){
+			System.out.println(gE);
+			return true;
+		}
+    }
+    
+    // Unit Test 10: Checks logic for an attempted capturing move that is not possible.
+    public static boolean UnitTest10() {
+		// The validMove method has some dead code that prevents the error messages intended to be 
+		// sent from being sent. This example shows that though a move completes the logic for 
+		// midSpace == null, no message for invalid capture is shown, only not capturing your own piece.
+		// I recommend changing the orders of these statements to reflect the specificity of them.
+
+		Move move8 = new Move(2,0,4,2);
+		try {
+			move8.validateMove(board, player);
+			return false;
+		} catch (Exception gE){
+			System.out.println(gE);
+			return true;
+		}
+    }
+    
+    // Unit Test 11: Checks logic on moving a piece backwards.
+    public static boolean UnitTest11() {
+		// The following two checks have a similar problem to the one prior, where the
+		// logic for checking for these things happening is never reached.
+		// If the player's color is the same as the color of the piece they are moving,
+		// They are able to move it backwards despite it not being kinged.
+
+		board.setBoard("Red" , false, 3, 1, board.getBoard());
+		board.setBoard("Black" , false, 4, 6, board.getBoard());
+		Move move9 = new Move(3,1,4,2);
+		Move move10 = new Move(4,6,3,7);
+		try {
+			move9.validateMove(board, player);
+			move10.validateMove(board, player);
+			return false;
+		} catch (Exception gE){
+			System.out.println(gE + " Red Piece");
+			return true;
+		}
+    }
+    
+    // Unit Test 12: Check logic on valid capture.
+    public static boolean UnitTest12() {
+		Move move11 = new Move(2,0,4,2);
+		try {
+			move11.validateMove(board, player);
+			return true;
+		} catch (Exception gE){
+			return false;
+		}
+    }
+    
+    // Unit Test 13: Checks logic for valid piece movement.
+    public static boolean UnitTest13() {
+    	Move move12 = new Move(2,2,3,3);
+		try {
+			move12.validateMove(board, player);
+			return true;
+		} catch (Exception gE){
+			System.out.println(gE);
+			return false;
+		}
     }
 
 }
