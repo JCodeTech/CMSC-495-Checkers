@@ -148,13 +148,23 @@ public class UnitTests {
 		// piece that moves in Checkers changes rows and columns each time.
 	
 		Move move4 = new Move(0,0,0,1);
+		boolean moveRight = false;
 		Move move5 = new Move(0,0,1,0);
 		try {
 			move4.validateMove(board, player);
+			moveRight = true;
+		} catch (GameException gE){
+			System.out.println(gE);
+		}
+		
+		try {
 			move5.validateMove(board, player);
 			return false;
 		} catch (GameException gE){
 			System.out.println(gE);
+			if (moveRight) {
+				return false;
+			}
 			return true;
 		}
     }
@@ -212,16 +222,13 @@ public class UnitTests {
 		// If the player's color is the same as the color of the piece they are moving,
 		// They are able to move it backwards despite it not being kinged.
 
-		board.setBoard("Red" , false, 3, 1, board.getBoard());
 		board.setBoard("Black" , false, 4, 6, board.getBoard());
-		Move move9 = new Move(3,1,4,2);
 		Move move10 = new Move(4,6,3,7);
 		try {
-			move9.validateMove(board, player);
 			move10.validateMove(board, player);
 			return false;
 		} catch (Exception gE){
-			System.out.println(gE + " Red Piece");
+			System.out.println(gE);
 			return true;
 		}
     }
@@ -233,6 +240,7 @@ public class UnitTests {
 			move11.validateMove(board, player);
 			return true;
 		} catch (Exception gE){
+			System.out.println(gE);
 			return false;
 		}
     }
