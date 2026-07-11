@@ -1,34 +1,35 @@
 /**
  * UMGC CMSC 495
- * Illustrates incremental program development
- * Class Checker - Class that stores information about a single piece on the checkerboard.
- * @author Alexander Egan
- * Date: June 22, 2026
+ * Developers: Joseph Romano, Alexander Egan
+ * Date: June 2026
  * JavaJDK - 26
  */
 
+package com.game.objects;
+
+
 public class Checker {
 
-	private boolean isKing = false;
-	private Color color;
+	// Variables that this class will need
+	private final String color;
+	private boolean isKing;
 
-	public Checker (String color) {
-		this.color = new Color(color);
+	public Checker (String color, boolean isKing) {
+		this.color = color;
+		this.isKing = false; // All checkers start as regular pieces, not kings
+
 	}
 
-	public void checkerKing() {
-		isKing = true;
+	public void setCheckerKing() {
+		this.isKing= true; // Sets the checker to king status when called.
 	}
 
 	public boolean isKing() {
-		return isKing;
+		return this.isKing; // Returns a boolean value based on if the checker is king or not.
 	}
 
 	public String getColor() {
-		return color.getColor();
+		return this.color; // Returns the color of the checker.
 	}
 
-	public String toString() {
-		return "" + color;
-	}
 }

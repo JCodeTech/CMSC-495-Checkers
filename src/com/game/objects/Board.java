@@ -1,18 +1,19 @@
 /**
  * UMGC CMSC 495
- * Illustrates incremental program development
- * Class Checker - Class that stores the current state of the checkerboard. The board can be updated as needed.
- * @author Alexander Egan
- * Date: June 22, 2026
+ * Developers: Joseph Romano, Alexander Egan
+ * Date: June 2026
  * JavaJDK - 26
  */
 
+package com.game.objects;
 
 public class Board {
 
+	private Checker[][] checkerBoard;
+
 	// 1 represents a space a checker piece can be placed.
 	// 0 represents a space that a checker piece cannot be placed.
-	int[][] board = {
+	int[][] validBoardSpaces = {
 			{1,0,1,0,1,0,1,0},
 			{0,1,0,1,0,1,0,1},
 			{1,0,1,0,1,0,1,0},
@@ -23,65 +24,60 @@ public class Board {
 			{0,1,0,1,0,1,0,1},
 	};
 
-	Checker[][] checkerBoard = new Checker[8][8];
-
+	// This will be called in main or controller class to set up the board.
+	// DO NOT CREATE BOARD OBJECTS WITHIN OTHER GAME OBJECTS.
+	// This will only be ran once per game.
 	public Board(){
-		setBoard();
+		// Set board will be handled separately instead of being called automatically as soon as a board object is created.
 	}
 
 	//Sets the Checkerboard to a start of game state.
 	// Black pieces are set at the top of the 2D array (rows 0-2).
 	// Red pieces are set at the bottom of the 2D array (rows 5-7).
-	public void setBoard() {
-		for (int i = 0; i < 8; i++) {
-			for (int x = 0; x < 8; x++) {
-				if (i % 2 == 0 && x % 2 == 0) {
+	public void newGame() { // Renamed function to newGame from setBoard. setBoard() will be used to set up certain test cases.
+		checkerBoard = new Checker[8][8];
+		for(int i = 0; i < 8; i++) {
+			for(int j = 0; j < 8; j++) {
+				if (validBoardSpaces[i][j] == 1) {
 					if (i < 3) {
-						checkerBoard[i][x] = new Checker("Black");
-					} else if (i > 4) {
-						checkerBoard[i][x] = new Checker("Red");
-					}
-				}
-				if (i % 2 == 1 && x % 2 == 1) {
-					if (i < 3) {
-						checkerBoard[i][x] = new Checker("Black");
-					} else if (i > 4) {
-						checkerBoard[i][x] = new Checker("Red");
+						checkerBoard[i][j] = new Checker("Black", false);
+					} else if (i >= 5) {
+						checkerBoard[i][j] = new Checker("Red", false);
 					}
 				}
 			}
 		}
 	}
 
-	// moveChecker: A checker piece at a specific location can be moved to another valid location.
-	// A valid location to move is marked by a one in the 2D array board.
-	public void moveChecker(int pieceRow, int pieceColumn, int destinationRow, int destinationColumn)
-			throws GameException{
-		Checker currentChecker = checkerBoard[pieceRow][pieceColumn];
+	// Function used for testing or possibly creating scenarios.
+	public void setBoard(String color, boolean isKing, int row, int col, Checker[][] scenorioBoard){
+		scenorioBoard[row][col] = new Checker(color, isKing);
+	}
 
-		if (currentChecker != null && board[destinationRow][destinationColumn] == 1) {
-			checkerBoard[destinationRow][destinationColumn] = currentChecker;
-			checkerBoard[pieceRow][pieceColumn] = null;
-		} else {
-			throw new GameException("Cannot move Checker piece to invalid location or checker piece does not exist.");
+	// This will be used in the GUI implementation.
+	// This returns the state of the board.
+	// This will assist in rendering the board.
+	// Can be used to check win / lose / draw conditions, but I may have a different way of doing that.
+	public Checker[][] getBoard() {
+		// Note: For now, this is acceptable to return the actual reference to the board.
+		// However, if external methods modify the board, it will modify the actual board. So keep this in mind if this is our intention.
+		// We may have to make a copy of the board and return that instead.
+		// For now, this is fine.  All board modifications will be handled in this class.
+		return checkerBoard;
+	}
+
+	// Whenever a checker is captured, this method will be called to clear that space.
+	public void clearPosition(int row, int col) {
+		if (row >= 0 && row < 8 && col >= 0 && col < 8) {
+			checkerBoard[row][col] = null;
 		}
 	}
 
-
-	// Makes a checker piece into a king piece.
-	public void checkerKing(int pieceRow, int pieceColumn) {
-		checkerBoard[pieceRow][pieceColumn].checkerKing();
+	// Whenever a checker makes it to the opponents side.
+	public void promoteToKing(int row, int col) {
+		if (checkerBoard[row][col] != null) {
+			checkerBoard[row][col].setCheckerKing();
+		}
 	}
 
-	public Checker getTile(int row, int column) {
-		return checkerBoard[row][column];
-	}
-
-	public int[][] getBoard() {
-		return board;
-	}
-
-	public Checker[][] getCheckersPlacement(){
-		return checkerBoard;
-	}
 }
