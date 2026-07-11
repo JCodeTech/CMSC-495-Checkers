@@ -66,9 +66,9 @@ While the game is active:
 * The following documentations are provided:
 
 1. [Project Plan](docs/Project%20Plan%20Group%202.docx)
-2. [Project Design](https://umuc365-my.sharepoint.com/:w:/g/personal/aegan5_student_umgc_edu/IQCuFd91cb-LQbvmqr_lN_k2AUE18jf4C8Lm0Ocm2mhyIjs?e=529nh5) Due ***June 26th 2026***
-3. [Phase I Source]() TO BE IMPLEMENTED - ***June 24th 2026***
-4. [Test Plan]() TO BE IMPLEMENTED - Due ***July 8th 2026***
-5. [Phase II Source]() TO BE IMPLEMENTED - Due ***July 15th 2026***
-6. [User Guide]() TO BE IMPLEMENTED - Due ***July 22nd 2026***
+2. [Project Design](docs/Group%202%20Project%20Design.docx)
+3. [Phase I Source](docs/Checkers%20Game%20Project%20Phase%201%20Report.docx)
+4. [Test Plan](docs/Group%202%20Test%20Plan.docx)
+5. [Phase II Source](https://umuc365-my.sharepoint.com/:w:/g/personal/aegan5_student_umgc_edu/IQDkkM8GEU9sTaCrYSuOGMbnAX6JCwoEGFF-k21lv_5hRgY?e=rYqDDc) Due ***July 15th 2026***
+6. [User Guide](https://umuc365-my.sharepoint.com/:w:/g/personal/aegan5_student_umgc_edu/IQBAyQcqJrVxTqYa_zsDXY2ZAQBkFnYjiVyPxLSXYgc_Hws?e=k7V1BC) Due ***July 22nd 2026***
 7. [Final Document]() TO BE IMPLEMENTED - Due ***August 4th 2026***
