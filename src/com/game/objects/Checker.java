@@ -13,10 +13,14 @@ public class Checker {
 	// Variables that this class will need
 	private final String color;
 	private boolean isKing;
+	private int row;
+	private int col;
 
-	public Checker (String color, boolean isKing) {
+	public Checker (String color, boolean isKing, int row, int col) {
 		this.color = color;
 		this.isKing = false; // All checkers start as regular pieces, not kings
+		this.row = row;
+		this.col = col;
 
 	}
 
