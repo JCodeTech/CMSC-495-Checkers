@@ -36,4 +36,13 @@ public class Checker {
 		return this.color; // Returns the color of the checker.
 	}
 
+	public int getRow(){return row;}
+
+	public int getCol(){return col;}
+
+	public void setNewPos(int row, int col){
+		this.row = row;
+		this.col = col;
+	}
+
 }
