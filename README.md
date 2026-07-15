@@ -61,14 +61,3 @@ While the game is active:
 * `GameRules`: Contains the logic for movement, captures, and victory conditions.
 * `AI`: Implements decision-making algorithms for the computer opponent.
 * `Window`: The graphical user interface (GUI) component for rendering the game.
-
-# Documentation
-* The following documentations are provided:
-
-1. [Project Plan](docs/Project%20Plan%20Group%202.docx)
-2. [Project Design](docs/Group%202%20Project%20Design.docx)
-3. [Phase I Source](docs/Checkers%20Game%20Project%20Phase%201%20Report.docx)
-4. [Test Plan](docs/Group%202%20Test%20Plan.docx)
-5. [Phase II Source](https://umuc365-my.sharepoint.com/:w:/g/personal/aegan5_student_umgc_edu/IQDkkM8GEU9sTaCrYSuOGMbnAX6JCwoEGFF-k21lv_5hRgY?e=rYqDDc) Due ***July 15th 2026***
-6. [User Guide](https://umuc365-my.sharepoint.com/:w:/g/personal/aegan5_student_umgc_edu/IQBAyQcqJrVxTqYa_zsDXY2ZAQBkFnYjiVyPxLSXYgc_Hws?e=k7V1BC) Due ***July 22nd 2026***
-7. [Final Document]() TO BE IMPLEMENTED - Due ***August 4th 2026***
