@@ -11,6 +11,7 @@ public class Board {
 
 	private Checker[][] checkerPiece; // Checker Piece
 	private BoardSquare[][] checkerBoard; // Piece of the board.
+	public
 
 	// 1 represents a space a checker piece can be placed.
 	// 0 represents a space that a checker piece cannot be placed.
@@ -76,18 +77,16 @@ public class Board {
 
 	public BoardSquare[][] getBoardPiece(){
 		return checkerBoard;
-	}
+	} // Returns the black and white squares on the board.
 
 	// Whenever a checker is captured, this method will be called to clear that space.
 	public void clearPosition(int row, int col) {
-		if (row >= 0 && row < 8 && col >= 0 && col < 8) {
 			checkerPiece[row][col] = null;
-		}
 	}
 
 	// Whenever a checker makes it to the opponents side.
 	public void promoteToKing(int row, int col) {
-		if (checkerPiece[row][col] != null) {
+		if (checkerPiece[row][col] != null && !checkerPiece[row][col].isKing()) {
 			checkerPiece[row][col].setCheckerKing();
 		}
 	}
