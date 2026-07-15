@@ -9,6 +9,7 @@ package com.game.logic;
 
 import com.game.objects.Board;
 import com.game.objects.Checker;
+import com.game.ui.BoardUI;
 
 /* Example of how this class is used:
     // When user clicks to move a piece
@@ -28,6 +29,8 @@ public class Move {
     private final int toCol;
     private boolean isCapture;
     Board board = new Board();
+    private BoardUI checkerUI;
+    private MoveValidation checkMove;
 
     public Move(int fromRow, int fromCol, int toRow, int toCol) {
         this.fromRow = fromRow;
@@ -43,16 +46,18 @@ public class Move {
         Checker piece = checkerBoard[fromRow][fromCol];
 
         // Remove piece from source position (set to null)
-        checkerBoard[fromRow][fromCol] = null;
+        board.clearPosition(fromRow, fromCol);
 
         // Place piece at destination position
         checkerBoard[toRow][toCol] = piece;
+        checkForKingPromotion(piece);
+        checkerUI.updateCheckerPieceUI();
     }
 
     // Check if a piece should be promoted to king
-    private void checkForKingPromotion(int row, int col) {
-        if (row == 0 || row == 7) { // Top or bottom of the board
-            board.promoteToKing(row, col);
+    private void checkForKingPromotion(Checker piece) {
+        if (piece.getRow() == 0 || piece.getRow() == 7) { // Top or bottom of the board
+            board.promoteToKing(piece.getRow(), piece.getCol());
         }
     }
 
