@@ -25,29 +25,35 @@ public class BoardUI {
         this.boardSquareUIS = new BoardSquareUI[8][8];
 
         
-        initializeBoard();
+        updateBoardUI();
+        updateCheckerPieceUI();
     }
     
-    private void initializeBoard() {
-        Checker[][] checkerPiece = board.getCheckerPiece();
+    private void updateBoardUI() {
         BoardSquare[][] checkerBoard = board.getBoardPiece();
         
         for (int row = 0; row < 8; row++) {
 
             for (int col = 0; col < 8; col++) {
-
-                Checker checker = checkerPiece[row][col];
                 BoardSquare square = checkerBoard[row][col];
                 BoardSquareUI boardSquareUI = new BoardSquareUI(square, row, col);
                 boardSquareUIS[row][col] = boardSquareUI;
-
                 root.getChildren().add(boardSquareUI.getSquare());
+            }
+        }
+    }
 
+    public void updateCheckerPieceUI(){
+        Checker[][] checkerPiece = board.getCheckerPiece();
+
+        for (int row = 0; row < 8; row++) {
+            for (int col = 0; col < 8; col++) {
+                Checker checker = checkerPiece[row][col];
                 if (checker != null) {
                     // Create UI checker object with its circle
                     CheckerUI checkerUI = new CheckerUI(checker, row, col);
                     checkerUIs[row][col] = checkerUI;
-                    
+
                     // Add circle to the UI pane
                     root.getChildren().add(checkerUI.getCircle());
                 }
@@ -56,9 +62,9 @@ public class BoardUI {
     }
 
 
+
     // Getter method for the checker UI object.
     public CheckerUI getCheckerUI(int row, int col) {
         return checkerUIs[row][col];
     }
-
 }
