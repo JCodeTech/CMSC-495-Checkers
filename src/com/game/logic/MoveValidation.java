@@ -56,7 +56,7 @@ public class MoveValidation {
             throw new GameException("Invalid move to " + toRow + ", " + toCol + ". You must move your piece within the game board"); // This should not be in the game.
         }
 
-        Checker[][] currentBoard = board.getCheckerPiece(); // Gets the current state of the board
+        Checker[][] currentBoard = board.getCheckerPiece(); // Gets the current state of the board (by returning all checker objects)
         Checker fromSpace = currentBoard[fromRow][fromCol]; // Gets the fromSpace at from position
 
         if (fromSpace == null){
