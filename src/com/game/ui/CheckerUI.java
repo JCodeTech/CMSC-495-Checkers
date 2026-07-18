@@ -7,20 +7,24 @@
 
 package com.game.ui;
 
+import com.game.objects.Board;
 import com.game.objects.Checker;
 import javafx.scene.shape.Circle;
 import javafx.scene.paint.Color;
 
 public class CheckerUI {
+    private Board board;
     private final Checker checker;
     private final Circle circle;
     private final int row;
     private final int col;
     private static final double SPACING = 60; // Space between circles
     private static final double CIRCLE_RADIUS = 20;
+
     
-    public CheckerUI(Checker checker, int row, int col) {
+    public CheckerUI(Checker checker, Board board, int row, int col) {
         this.checker = checker;
+        this.board = board;
         this.row = row;
         this.col = col;
         
@@ -31,6 +35,12 @@ public class CheckerUI {
         circle.setOnMouseClicked(event -> {
             // TODO: Implement Checker Object Linking
             System.out.println("TEST: The " + checker.getColor() + " Checker at position (" + row + ", " + col + ") has been clicked on.");
+            Checker selectedChecker = board.findSelected(checker);
+            if (selectedChecker != null) {
+                System.out.println("Found selected object at " + selectedChecker.getRow() + ", " + selectedChecker.getCol());
+                selectedChecker.setSelected(false);
+            }
+            checker.setSelected(true);
         });
     }
 
