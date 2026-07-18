@@ -63,15 +63,7 @@ public class Board {
 		scenorioBoard[row][col] = new Checker(color, isKing, row, col);
 	}
 
-	// This will be used in the GUI implementation.
-	// This returns the state of the board.
-	// This will assist in rendering the board.
-	// Can be used to check win / lose / draw conditions, but I may have a different way of doing that.
 	public Checker[][] getCheckerPiece() {
-		// Note: For now, this is acceptable to return the actual reference to the board.
-		// However, if external methods modify the board, it will modify the actual board. So keep this in mind if this is our intention.
-		// We may have to make a copy of the board and return that instead.
-		// For now, this is fine.  All board modifications will be handled in this class.
 		return checkerPiece;
 	}
 
@@ -89,6 +81,28 @@ public class Board {
 		if (checkerPiece[row][col] != null && !checkerPiece[row][col].isKing()) {
 			checkerPiece[row][col].setCheckerKing();
 		}
+	}
+
+	public Checker findSelected(Checker selectedChecker){
+		for (int i = 0; i < 8; i++){
+			for (int j = 0; j < 8; j++){
+				if (checkerPiece[i][j] != null && checkerPiece[i][j].getSelected() && checkerPiece[i][j] == selectedChecker){
+					return selectedChecker;
+				}
+			}
+		}
+		return null;
+	}
+
+	public BoardSquare findSelected(BoardSquare selectedSpace){
+		for (int i = 0; i < 8; i++){
+			for (int j = 0; j < 8; j++){
+				if (checkerBoard[i][j] != null && checkerBoard[i][j].getSelected() && checkerBoard[i][j] == selectedSpace){
+					return selectedSpace;
+				}
+			}
+		}
+		return null;
 	}
 
 }
