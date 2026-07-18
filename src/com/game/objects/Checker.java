@@ -15,13 +15,13 @@ public class Checker {
 	private boolean isKing;
 	private int row;
 	private int col;
+	private boolean isSelected = false;
 
 	public Checker (String color, boolean isKing, int row, int col) {
 		this.color = color;
 		this.isKing = false; // All checkers start as regular pieces, not kings
 		this.row = row;
 		this.col = col;
-
 	}
 
 	public void setCheckerKing() {
@@ -45,4 +45,11 @@ public class Checker {
 		this.col = col;
 	}
 
+	public boolean getSelected() {
+		return isSelected;
+	}
+
+	public void setSelected(boolean selected){
+		this.isSelected = selected;
+	}
 }
