@@ -36,7 +36,7 @@ public class BoardUI {
 
             for (int col = 0; col < 8; col++) {
                 BoardSquare square = checkerBoard[row][col];
-                BoardSquareUI boardSquareUI = new BoardSquareUI(square, row, col);
+                BoardSquareUI boardSquareUI = new BoardSquareUI(square, board, row, col);
                 boardSquareUIS[row][col] = boardSquareUI;
                 root.getChildren().add(boardSquareUI.getSquare());
             }
@@ -51,7 +51,7 @@ public class BoardUI {
                 Checker checker = checkerPiece[row][col];
                 if (checker != null) {
                     // Create UI checker object with its circle
-                    CheckerUI checkerUI = new CheckerUI(checker, row, col);
+                    CheckerUI checkerUI = new CheckerUI(checker, board, row, col);
                     checkerUIs[row][col] = checkerUI;
 
                     // Add circle to the UI pane
