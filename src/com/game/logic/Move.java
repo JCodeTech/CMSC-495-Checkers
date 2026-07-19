@@ -7,9 +7,12 @@
 
 package com.game.logic;
 
+import com.game.entities.Player;
 import com.game.objects.Board;
+import com.game.objects.BoardSquare;
 import com.game.objects.Checker;
 import com.game.ui.BoardUI;
+import com.game.util.GameException;
 
 /* Example of how this class is used:
     // When user clicks to move a piece
@@ -28,11 +31,13 @@ public class Move {
     private final int toRow;
     private final int toCol;
     private boolean isCapture;
-    Board board = new Board();
+    private final Board board;
     private BoardUI checkerUI;
+    private MoveValidation move;
     private MoveValidation checkMove;
 
-    public Move(int fromRow, int fromCol, int toRow, int toCol) {
+    public Move(Board board, int fromRow, int fromCol, int toRow, int toCol) {
+        this.board = board;
         this.fromRow = fromRow;
         this.fromCol = fromCol;
         this.toRow = toRow;
@@ -40,16 +45,16 @@ public class Move {
     }
 
     // Method to move a checker from one position to another
-    public void moveChecker(int fromRow, int fromCol, int toRow, int toCol, Board board) {
+    public void moveChecker(Checker piece, BoardSquare space) {
         Checker[][] checkerBoard = board.getCheckerPiece(); // Gets the current state of the board
-        // Get the checker from source position
-        Checker piece = checkerBoard[fromRow][fromCol];
 
         // Remove piece from source position (set to null)
         board.clearPosition(fromRow, fromCol);
 
-        // Place piece at destination position
+        // Place piece at destination position (For Board Class, NEEDS REFACTORING!!!!)
         checkerBoard[toRow][toCol] = piece;
+        piece.setNewPos(space.getRow(), space.getCol());
+
         checkForKingPromotion(piece);
         checkerUI.updateCheckerPieceUI();
     }
@@ -70,5 +75,17 @@ public class Move {
         // Clear the captured piece
         board.clearPosition(midRow, midCol);
     }
+
+    public void makeMove() throws GameException {
+        BoardSquare space = (BoardSquare) board.findSelected("space");
+        Checker piece = (Checker) board.findSelected("checker");
+
+        boolean isValid = move.validateMove(piece, space);
+
+        if (isValid) {
+            moveChecker(piece, space);
+        }
+    }
+
 
 }
