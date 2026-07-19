@@ -1,8 +1,10 @@
 package com.game.ui;
 
+import com.game.logic.Move;
 import com.game.objects.Board;
 import com.game.objects.BoardSquare;
 import com.game.objects.Checker;
+import com.game.util.GameException;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
@@ -13,6 +15,7 @@ public class BoardSquareUI {
     private final int row;
     private final int col;
     private static final int squareSize = 60; // Sizes of the board squares
+    private Move move;
 
     public BoardSquareUI(BoardSquare boardSquare, Board board, int row, int col){
         this.boardSquare = boardSquare;
@@ -22,14 +25,20 @@ public class BoardSquareUI {
         this.square = createSquare();
 
         square.setOnMouseClicked(event -> {
-            // TODO: Implement Checker Object Linking
             System.out.println("TEST: The " + boardSquare.getColor() + " Square at position (" + row + ", " + col + ") has been clicked on.");
-            BoardSquare selectedSpace = board.findSelected(boardSquare);
+            BoardSquare selectedSpace = board.findSelectedSpace(boardSquare);
             if (selectedSpace != null) {
                 System.out.println("Found selected object at " + selectedSpace.getRow() + ", " + selectedSpace.getCol());
                 selectedSpace.setSelected(false);
             }
             boardSquare.setSelected(true);
+            try {
+                if (this.move != null) {
+                    this.move.makeMove();
+                }
+            } catch (GameException e) {
+                throw new RuntimeException(e);
+            }
         });
     }
 
