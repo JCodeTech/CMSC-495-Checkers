@@ -33,9 +33,8 @@ public class CheckerUI {
 
         // Click handler to reference this specific checker UI object.
         circle.setOnMouseClicked(event -> {
-            // TODO: Implement Checker Object Linking
             System.out.println("TEST: The " + checker.getColor() + " Checker at position (" + row + ", " + col + ") has been clicked on.");
-            Checker selectedChecker = board.findSelected(checker);
+            Checker selectedChecker = board.findSelectedChecker(checker);
             if (selectedChecker != null) {
                 System.out.println("Found selected object at " + selectedChecker.getRow() + ", " + selectedChecker.getCol());
                 selectedChecker.setSelected(false);
