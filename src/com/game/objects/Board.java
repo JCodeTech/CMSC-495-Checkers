@@ -7,6 +7,8 @@
 
 package com.game.objects;
 
+import java.util.Objects;
+
 public class Board {
 
 	private Checker[][] checkerPiece; // Checker Piece
@@ -83,7 +85,7 @@ public class Board {
 		}
 	}
 
-	public Checker findSelected(Checker selectedChecker){
+	public Checker findSelectedChecker(Checker selectedChecker){
 		for (int i = 0; i < 8; i++){
 			for (int j = 0; j < 8; j++){
 				if (checkerPiece[i][j] != null && checkerPiece[i][j].getSelected() && checkerPiece[i][j] == selectedChecker){
@@ -94,11 +96,27 @@ public class Board {
 		return null;
 	}
 
-	public BoardSquare findSelected(BoardSquare selectedSpace){
+	public BoardSquare findSelectedSpace(BoardSquare selectedSpace){
 		for (int i = 0; i < 8; i++){
 			for (int j = 0; j < 8; j++){
 				if (checkerBoard[i][j] != null && checkerBoard[i][j].getSelected() && checkerBoard[i][j] == selectedSpace){
 					return selectedSpace;
+				}
+			}
+		}
+		return null;
+	}
+
+	public Object findSelected(String type){
+		BoardSquare selectedSpace = null;
+		Checker selectedChecker = null;
+		for (int i = 0; i < 8; i++){
+			for (int j = 0; j < 8; j++){
+				if (Objects.equals(type, "space") && checkerBoard[i][j] != null && checkerBoard[i][j].getSelected()){
+					return selectedSpace;
+				}
+				if (Objects.equals(type, "checker") && checkerPiece[i][j] != null && checkerPiece[i][j].getSelected()){
+					return selectedChecker;
 				}
 			}
 		}
