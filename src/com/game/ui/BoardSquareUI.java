@@ -3,41 +3,48 @@ package com.game.ui;
 import com.game.logic.Move;
 import com.game.objects.Board;
 import com.game.objects.BoardSquare;
-import com.game.objects.Checker;
 import com.game.util.GameException;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 public class BoardSquareUI {
-    private Board board;
-    private final BoardSquare boardSquare; // The Square object that this UI object will represent.
-    private final Rectangle square; // UI representation of the Square.
+    private final Board board;
+    private final BoardSquare boardSquare;
+    private final Rectangle square;
     private final int row;
     private final int col;
-    private static final int squareSize = 60; // Sizes of the board squares
-    private Move move;
+    private static final int squareSize = 60;
+    private final Move move;
 
-    public BoardSquareUI(BoardSquare boardSquare, Board board, int row, int col){
+    public BoardSquareUI(
+            BoardSquare boardSquare,
+            Board board,
+            BoardUI boardUI,
+            int row,
+            int col) {
+
         this.boardSquare = boardSquare;
         this.board = board;
         this.row = row;
         this.col = col;
         this.square = createSquare();
+        this.move = new Move(board, boardUI);
 
         square.setOnMouseClicked(event -> {
-            System.out.println("TEST: The " + boardSquare.getColor() + " Square at position (" + row + ", " + col + ") has been clicked on.");
-            BoardSquare selectedSpace = board.findSelectedSpace(boardSquare);
-            if (selectedSpace != null) {
-                System.out.println("Found selected object at " + selectedSpace.getRow() + ", " + selectedSpace.getCol());
-                selectedSpace.setSelected(false);
+            BoardSquare previouslySelected =
+                    (BoardSquare) board.findSelected("space");
+
+            if (previouslySelected != null) {
+                previouslySelected.setSelected(false);
             }
+
             boardSquare.setSelected(true);
+
             try {
-                if (this.move != null) {
-                    this.move.makeMove();
-                }
+                move.makeMove();
             } catch (GameException e) {
-                throw new RuntimeException(e);
+                boardSquare.setSelected(false);
+                System.err.println(e.getMessage());
             }
         });
     }
@@ -50,7 +57,8 @@ public class BoardSquareUI {
         square.setX(col * squareSize);
         square.setY(row * squareSize);
 
-        if ((row % 2 == 0 && col % 2 == 0) || (row % 2 == 1 && col % 2 == 1)) {
+        if ((row % 2 == 0 && col % 2 == 0)
+                || (row % 2 == 1 && col % 2 == 1)) {
             square.setFill(Color.BLACK);
         } else {
             square.setFill(Color.WHITE);
@@ -74,5 +82,4 @@ public class BoardSquareUI {
     public int getCol() {
         return col;
     }
-
 }
