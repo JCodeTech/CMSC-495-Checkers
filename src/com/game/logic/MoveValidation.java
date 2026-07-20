@@ -43,10 +43,9 @@ public class MoveValidation {
 
         // Checks to see if destination is empty.
         if (space == null) {
-            throw new GameException(
-                    "You must choose an empty spot.");
+            throw new GameException("You must choose an empty spot.");
         }
-
+        // occupying
         int toCol = space.getCol();
         int toRow = space.getRow();
         int fromRow = piece.getRow();
@@ -54,6 +53,10 @@ public class MoveValidation {
 
         if (toCol < 0 || toCol > 7 || toRow < 0 || toRow > 7){
             throw new GameException("Invalid move to " + toRow + ", " + toCol + ". You must move your piece within the game board"); // This should not be in the game.
+        }
+
+        if(board.getCheckerPiece()[toRow][toCol] != null){
+            throw new GameException("Destination square is already occupied.");
         }
 
         final int difRow = Math.abs(toRow - fromRow);
