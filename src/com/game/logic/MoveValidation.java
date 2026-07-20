@@ -34,7 +34,6 @@ public class MoveValidation {
         this.board = board;
     }
 
-    // We can use this method to highlight every valid space, but we need to have it return the boolean for each if condition.
     public boolean validateMove(Checker piece, BoardSquare space) throws GameException {
 
 
@@ -43,8 +42,9 @@ public class MoveValidation {
         }
 
         // Checks to see if destination is empty.
-        if (space != null) {
-            throw new GameException("You must choose an empty spot.");
+        if (space == null) {
+            throw new GameException(
+                    "You must choose an empty spot.");
         }
 
         int toCol = space.getCol();
@@ -95,8 +95,8 @@ public class MoveValidation {
             isCapture = true;
 
             // Find the middle position that should contain the opponent piece
-            int midRow = fromRow + (toRow - fromRow) / 2; // Gets coordinates of middle space for Row
-            int midCol = fromCol + (toCol - fromCol) / 2; // Gets coordinates of middle space for Column
+            int midRow = fromRow + (toRow - fromRow) / 2;
+            int midCol = fromCol + (toCol - fromCol) / 2;
 
             Checker[][] currentBoard = board.getCheckerPiece();
             Checker midSpace = currentBoard[midRow][midCol]; // Sets the calculated mid-section between move to variable.
@@ -115,6 +115,10 @@ public class MoveValidation {
 
 
         return true;
+    }
+
+    public boolean isCapture() {
+        return isCapture;
     }
 
 }
