@@ -8,9 +8,10 @@
 package com.game.ui;
 
 import com.game.objects.Board;
-import com.game.objects.Checker;
 import com.game.objects.BoardSquare;
+import com.game.objects.Checker;
 import javafx.scene.layout.Pane;
+import javafx.scene.shape.Circle;
 
 public class BoardUI {
     private final Pane root;
@@ -24,46 +25,44 @@ public class BoardUI {
         this.checkerUIs = new CheckerUI[8][8];
         this.boardSquareUIS = new BoardSquareUI[8][8];
 
-        
         updateBoardUI();
         updateCheckerPieceUI();
     }
-    
+
     private void updateBoardUI() {
         BoardSquare[][] checkerBoard = board.getBoardPiece();
-        
-        for (int row = 0; row < 8; row++) {
 
+        for (int row = 0; row < 8; row++) {
             for (int col = 0; col < 8; col++) {
                 BoardSquare square = checkerBoard[row][col];
-                BoardSquareUI boardSquareUI = new BoardSquareUI(square, board, row, col);
+                BoardSquareUI boardSquareUI =
+                        new BoardSquareUI(square, board, this, row, col);
+
                 boardSquareUIS[row][col] = boardSquareUI;
                 root.getChildren().add(boardSquareUI.getSquare());
             }
         }
     }
 
-    public void updateCheckerPieceUI(){
-        Checker[][] checkerPiece = board.getCheckerPiece();
+    public void updateCheckerPieceUI() {
+        root.getChildren().removeIf(node -> node instanceof Circle);
+
+        Checker[][] checkerPieces = board.getCheckerPiece();
 
         for (int row = 0; row < 8; row++) {
             for (int col = 0; col < 8; col++) {
-                Checker checker = checkerPiece[row][col];
+                checkerUIs[row][col] = null;
+
+                Checker checker = checkerPieces[row][col];
                 if (checker != null) {
-                    // Create UI checker object with its circle
                     CheckerUI checkerUI = new CheckerUI(checker, board, row, col);
                     checkerUIs[row][col] = checkerUI;
-
-                    // Add circle to the UI pane
                     root.getChildren().add(checkerUI.getCircle());
                 }
             }
         }
     }
 
-
-
-    // Getter method for the checker UI object.
     public CheckerUI getCheckerUI(int row, int col) {
         return checkerUIs[row][col];
     }
