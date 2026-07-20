@@ -27,8 +27,7 @@ public class CheckerUI {
         this.board = board;
         this.row = row;
         this.col = col;
-        
-        // Create the circle here for better encapsulation
+
         this.circle = createCircle();
 
         // Click handler to reference this specific checker UI object.
@@ -60,7 +59,7 @@ public class CheckerUI {
     }
 
     private double getCircleRadius() {
-        return checker.isKing() ? 25 : CIRCLE_RADIUS; // 20 is base radius, 25 for kings
+        return checker.isKing() ? 25 : CIRCLE_RADIUS;
     }
 
     public Checker getChecker() {
