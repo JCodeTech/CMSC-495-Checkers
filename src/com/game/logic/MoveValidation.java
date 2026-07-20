@@ -45,7 +45,7 @@ public class MoveValidation {
         if (space == null) {
             throw new GameException("You must choose an empty spot.");
         }
-        // occupying
+
         int toCol = space.getCol();
         int toRow = space.getRow();
         int fromRow = piece.getRow();
