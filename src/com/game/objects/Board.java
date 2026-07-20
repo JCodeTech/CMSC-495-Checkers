@@ -108,18 +108,26 @@ public class Board {
 	}
 
 	public Object findSelected(String type){
-		BoardSquare selectedSpace = null;
-		Checker selectedChecker = null;
+
 		for (int i = 0; i < 8; i++){
 			for (int j = 0; j < 8; j++){
-				if (Objects.equals(type, "space") && checkerBoard[i][j] != null && checkerBoard[i][j].getSelected()){
-					return selectedSpace;
+
+				if (Objects.equals(type, "space")
+						&& checkerBoard[i][j] != null
+						&& checkerBoard[i][j].getSelected()){
+
+					return checkerBoard[i][j];
 				}
-				if (Objects.equals(type, "checker") && checkerPiece[i][j] != null && checkerPiece[i][j].getSelected()){
-					return selectedChecker;
+
+				if (Objects.equals(type, "checker")
+						&& checkerPiece[i][j] != null
+						&& checkerPiece[i][j].getSelected()){
+
+					return checkerPiece[i][j];
 				}
 			}
 		}
+
 		return null;
 	}
 
