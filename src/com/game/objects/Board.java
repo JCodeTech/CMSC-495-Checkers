@@ -7,9 +7,13 @@
 
 package com.game.objects;
 
+import java.util.Objects;
+
 public class Board {
 
-	private Checker[][] checkerBoard;
+	private Checker[][] checkerPiece; // Checker Piece
+	private BoardSquare[][] checkerBoard; // Piece of the board.
+	public
 
 	// 1 represents a space a checker piece can be placed.
 	// 0 represents a space that a checker piece cannot be placed.
@@ -35,15 +39,22 @@ public class Board {
 	// Black pieces are set at the top of the 2D array (rows 0-2).
 	// Red pieces are set at the bottom of the 2D array (rows 5-7).
 	public void newGame() { // Renamed function to newGame from setBoard. setBoard() will be used to set up certain test cases.
-		checkerBoard = new Checker[8][8];
+
+		checkerPiece = new Checker[8][8];
+		checkerBoard = new BoardSquare[8][8];
+
 		for(int i = 0; i < 8; i++) {
 			for(int j = 0; j < 8; j++) {
+
 				if (validBoardSpaces[i][j] == 1) {
+					checkerBoard[i][j] = new BoardSquare("Black", i, j);
 					if (i < 3) {
-						checkerBoard[i][j] = new Checker("Black", false);
+						checkerPiece[i][j] = new Checker("Black", false, i, j);
 					} else if (i >= 5) {
-						checkerBoard[i][j] = new Checker("Red", false);
+						checkerPiece[i][j] = new Checker("Red", false, i, j);
 					}
+				} else {
+					checkerBoard[i][j] = new BoardSquare("White", i, j);
 				}
 			}
 		}
@@ -51,33 +62,73 @@ public class Board {
 
 	// Function used for testing or possibly creating scenarios.
 	public void setBoard(String color, boolean isKing, int row, int col, Checker[][] scenorioBoard){
-		scenorioBoard[row][col] = new Checker(color, isKing);
+		scenorioBoard[row][col] = new Checker(color, isKing, row, col);
 	}
 
-	// This will be used in the GUI implementation.
-	// This returns the state of the board.
-	// This will assist in rendering the board.
-	// Can be used to check win / lose / draw conditions, but I may have a different way of doing that.
-	public Checker[][] getBoard() {
-		// Note: For now, this is acceptable to return the actual reference to the board.
-		// However, if external methods modify the board, it will modify the actual board. So keep this in mind if this is our intention.
-		// We may have to make a copy of the board and return that instead.
-		// For now, this is fine.  All board modifications will be handled in this class.
-		return checkerBoard;
+	public Checker[][] getCheckerPiece() {
+		return checkerPiece;
 	}
+
+	public BoardSquare[][] getBoardPiece(){
+		return checkerBoard;
+	} // Returns the black and white squares on the board.
 
 	// Whenever a checker is captured, this method will be called to clear that space.
 	public void clearPosition(int row, int col) {
-		if (row >= 0 && row < 8 && col >= 0 && col < 8) {
-			checkerBoard[row][col] = null;
-		}
+			checkerPiece[row][col] = null;
 	}
 
 	// Whenever a checker makes it to the opponents side.
 	public void promoteToKing(int row, int col) {
-		if (checkerBoard[row][col] != null) {
-			checkerBoard[row][col].setCheckerKing();
+		if (checkerPiece[row][col] != null && !checkerPiece[row][col].isKing()) {
+			checkerPiece[row][col].setCheckerKing();
 		}
+	}
+
+	public Checker findSelectedChecker(Checker selectedChecker){
+		for (int i = 0; i < 8; i++){
+			for (int j = 0; j < 8; j++){
+				if (checkerPiece[i][j] != null && checkerPiece[i][j].getSelected() && checkerPiece[i][j] == selectedChecker){
+					return selectedChecker;
+				}
+			}
+		}
+		return null;
+	}
+
+	public BoardSquare findSelectedSpace(BoardSquare selectedSpace){
+		for (int i = 0; i < 8; i++){
+			for (int j = 0; j < 8; j++){
+				if (checkerBoard[i][j] != null && checkerBoard[i][j].getSelected() && checkerBoard[i][j] == selectedSpace){
+					return selectedSpace;
+				}
+			}
+		}
+		return null;
+	}
+
+	public Object findSelected(String type){
+
+		for (int i = 0; i < 8; i++){
+			for (int j = 0; j < 8; j++){
+
+				if (Objects.equals(type, "space")
+						&& checkerBoard[i][j] != null
+						&& checkerBoard[i][j].getSelected()){
+
+					return checkerBoard[i][j];
+				}
+
+				if (Objects.equals(type, "checker")
+						&& checkerPiece[i][j] != null
+						&& checkerPiece[i][j].getSelected()){
+
+					return checkerPiece[i][j];
+				}
+			}
+		}
+
+		return null;
 	}
 
 }

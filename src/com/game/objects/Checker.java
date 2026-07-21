@@ -13,11 +13,15 @@ public class Checker {
 	// Variables that this class will need
 	private final String color;
 	private boolean isKing;
+	private int row;
+	private int col;
+	private boolean isSelected = false;
 
-	public Checker (String color, boolean isKing) {
+	public Checker (String color, boolean isKing, int row, int col) {
 		this.color = color;
 		this.isKing = false; // All checkers start as regular pieces, not kings
-
+		this.row = row;
+		this.col = col;
 	}
 
 	public void setCheckerKing() {
@@ -32,4 +36,20 @@ public class Checker {
 		return this.color; // Returns the color of the checker.
 	}
 
+	public int getRow(){return row;}
+
+	public int getCol(){return col;}
+
+	public void setNewPos(int row, int col){
+		this.row = row;
+		this.col = col;
+	}
+
+	public boolean getSelected() {
+		return isSelected;
+	}
+
+	public void setSelected(boolean selected){
+		this.isSelected = selected;
+	}
 }
