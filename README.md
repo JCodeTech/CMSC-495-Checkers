@@ -6,7 +6,7 @@ This file will not be included in the final production.
 
 A Java implementation of the classic Checkers game, featuring both Human vs. Human and Human vs. AI gameplay modes.
 
-# Authors
+# Contributors
 
 * Joseph Romano - [JCodeTech](https://github.com/JCodeTech)
 * Alexander Egan - [AirQual1ty](https://github.com/AirQual1ty)
