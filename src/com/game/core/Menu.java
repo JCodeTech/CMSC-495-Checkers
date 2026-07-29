@@ -14,6 +14,7 @@ import javafx.scene.layout.Pane;
 public class Menu extends Pane {
     
     public Menu() {
+
     	setStyle("-fx-background-color: #C6C6C6");
     	setOpacity(0.9);
     	setPrefSize(800, 800);
@@ -32,7 +33,7 @@ public class Menu extends Pane {
     	
     	playerStart.setOnAction(e -> {
     		// Put the method that will set the game to have player opponent here.
-    		
+    		Controller.setGameMode(true); // sets the gamemode boolean variable in Controller class to true
     		hide();
     		});
     	
@@ -47,7 +48,7 @@ public class Menu extends Pane {
     	
     	computerStart.setOnAction(e -> {
     		// Put the method that will set the game to have computer opponent here.
-    		
+			Controller.setGameMode(false); // sets the gamemode boolean variable in Controller class to false
     		hide();
     		});
     	
@@ -58,6 +59,8 @@ public class Menu extends Pane {
     	
     	getChildren().add(computerStart);
     }
+
+	public void show(){this.setVisible(true);}
     
     public void hide() {
     	this.setVisible(false);
