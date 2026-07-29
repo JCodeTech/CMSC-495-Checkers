@@ -7,6 +7,7 @@
 
 package com.game.logic;
 
+import com.game.core.Controller;
 import com.game.objects.Board;
 import com.game.objects.BoardSquare;
 import com.game.objects.Checker;
@@ -38,10 +39,10 @@ public class Move {
         if (Math.abs(toRow - fromRow) == 2 && Math.abs(toCol - fromCol) == 2) {
             int capturedRow = (fromRow + toRow) / 2;
             int capturedCol = (fromCol + toCol) / 2;
-            board.clearPosition(capturedRow, capturedCol);
+            board.clearPosition(capturedRow, capturedCol,true);
         }
 
-        board.clearPosition(fromRow, fromCol);
+        board.clearPosition(fromRow, fromCol,false);
         board.getCheckerPiece()[toRow][toCol] = piece;
         piece.setNewPos(toRow, toCol);
 
@@ -53,5 +54,6 @@ public class Move {
         destination.setSelected(false);
 
         boardUI.updateCheckerPieceUI();
+        Controller.flipTurn();
     }
 }
