@@ -7,6 +7,8 @@
 
 package com.game.objects;
 
+import com.game.logic.GameRules;
+
 import java.util.Objects;
 
 public class Board {
@@ -50,8 +52,10 @@ public class Board {
 					checkerBoard[i][j] = new BoardSquare("Black", i, j);
 					if (i < 3) {
 						checkerPiece[i][j] = new Checker("Black", false, i, j);
+						GameRules.blackCheckers++;
 					} else if (i >= 5) {
 						checkerPiece[i][j] = new Checker("Red", false, i, j);
+						GameRules.redCheckers++;
 					}
 				} else {
 					checkerBoard[i][j] = new BoardSquare("White", i, j);
@@ -74,8 +78,22 @@ public class Board {
 	} // Returns the black and white squares on the board.
 
 	// Whenever a checker is captured, this method will be called to clear that space.
-	public void clearPosition(int row, int col) {
-			checkerPiece[row][col] = null;
+	public void clearPosition(int row, int col, boolean isCapture) {
+
+		if (isCapture) {
+			Checker cPiece = checkerPiece[row][col];
+			if (cPiece.getColor().equals("Red")) {
+				GameRules.redCheckers--;
+				System.out.println(GameRules.redCheckers);
+				GameRules.isGameOver();
+			} else {
+				GameRules.blackCheckers--;
+				System.out.println(GameRules.blackCheckers);
+				GameRules.isGameOver();
+			}
+		}
+		checkerPiece[row][col] = null;
+		//cPiece = null;
 	}
 
 	// Whenever a checker makes it to the opponents side.
@@ -129,6 +147,16 @@ public class Board {
 		}
 
 		return null;
+	}
+
+	public void clearSelectedCheckers() {
+		for (Checker[] row : checkerPiece) {
+			for (Checker checker : row) {
+				if (checker != null) {
+					checker.setSelected(false);
+				}
+			}
+		}
 	}
 
 }
