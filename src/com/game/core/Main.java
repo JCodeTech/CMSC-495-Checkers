@@ -28,8 +28,8 @@ public class Main extends Application {
 
         BoardUI boardUI = new BoardUI(root, board);
 
-        Menu menu = new Menu();
-        root.getChildren().add(menu);
+        MainMenu mainMenu = new MainMenu();
+        root.getChildren().add(mainMenu);
     }
 
     public static void main(String[] args) {

@@ -1,9 +1,12 @@
 package com.game.core;
 
+import java.awt.event.KeyEvent;
+
 public class Controller{
 
     public static boolean player1Turn = true;
     public static boolean playerVsPlayer = true;
+    public static boolean gameStarted = false;
 
 public static void flipTurn(){
 
@@ -19,4 +22,5 @@ public static void setGameMode(boolean gameMode){
 public static boolean getPlayerTurn(){
     return player1Turn;
 }
+
 }

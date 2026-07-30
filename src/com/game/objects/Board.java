@@ -7,14 +7,15 @@
 
 package com.game.objects;
 
+import com.game.core.Controller;
 import com.game.logic.GameRules;
 
 import java.util.Objects;
 
 public class Board {
 
-	private Checker[][] checkerPiece; // Checker Piece
-	private BoardSquare[][] checkerBoard; // Piece of the board.
+	private static Checker[][] checkerPiece; // Checker Piece
+	private static BoardSquare[][] checkerBoard; // Piece of the board.
 	public
 
 	// 1 represents a space a checker piece can be placed.
@@ -42,6 +43,7 @@ public class Board {
 	// Red pieces are set at the bottom of the 2D array (rows 5-7).
 	public void newGame() { // Renamed function to newGame from setBoard. setBoard() will be used to set up certain test cases.
 
+		Controller.gameStarted = true;
 		checkerPiece = new Checker[8][8];
 		checkerBoard = new BoardSquare[8][8];
 
@@ -93,7 +95,6 @@ public class Board {
 			}
 		}
 		checkerPiece[row][col] = null;
-		//cPiece = null;
 	}
 
 	// Whenever a checker makes it to the opponents side.
@@ -155,6 +156,17 @@ public class Board {
 				if (checker != null) {
 					checker.setSelected(false);
 				}
+			}
+		}
+	}
+
+	// Method used for new game
+	public static void clearBoard(){
+		Controller.gameStarted = false;
+		for(int i = 0; i < 8; i++){
+			for (int j = 0; j < 8; j++){
+				checkerPiece[i][j] = null;
+				checkerBoard[i][j] = null; // Need to modify how new game generates board so we do not need to keep regenerating the board pieces.
 			}
 		}
 	}
