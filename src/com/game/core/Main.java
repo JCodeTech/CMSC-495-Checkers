@@ -11,6 +11,8 @@ import com.game.entities.Player;
 
 public class Main extends Application {
 
+    public static Board board;
+
     @Override
     public void start(Stage primaryStage) {
 
@@ -21,7 +23,7 @@ public class Main extends Application {
 
         Controller controller = new Controller();
 
-        Board board = new Board();
+        board = new Board();
         board.newGame();
 
         Player player1 = new Player("Player 1", "Red", true);
@@ -37,5 +39,9 @@ public class Main extends Application {
 
     public static void main(String[] args) {
         launch(args);
+    }
+
+    public static Board getBoard(){
+        return board;
     }
 }
