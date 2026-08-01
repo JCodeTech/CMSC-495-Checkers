@@ -2,6 +2,7 @@ package com.game.core;
 
 import com.game.objects.Board;
 import com.game.ui.BoardUI;
+import com.game.ui.InfoPanel;
 import javafx.application.Application;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -27,9 +28,11 @@ public class Main extends Application {
         Player player2 = new Player("Player 2", "Black", true);
 
         BoardUI boardUI = new BoardUI(root, board);
+        InfoPanel turnPanel = new InfoPanel();
 
         MainMenu mainMenu = new MainMenu();
         root.getChildren().add(mainMenu);
+        root.getChildren().add(turnPanel);
     }
 
     public static void main(String[] args) {

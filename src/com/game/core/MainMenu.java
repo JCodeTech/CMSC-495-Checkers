@@ -35,7 +35,8 @@ public class MainMenu extends Pane {
     	playerStart.setOnAction(e -> {
     		// Put the method that will set the game to have player opponent here.
     		Controller.setGameMode(true); // sets the gamemode boolean variable in Controller class to true
-    		hide();
+			Controller.gameStarted = true;
+			hide();
     		});
     	
     	playerStart.setPrefSize(400, 50);
@@ -50,7 +51,8 @@ public class MainMenu extends Pane {
     	computerStart.setOnAction(e -> {
     		// Put the method that will set the game to have computer opponent here.
 			Controller.setGameMode(false); // sets the gamemode boolean variable in Controller class to false
-    		hide();
+			Controller.gameStarted = true;
+			hide();
     		});
     	
     	computerStart.setPrefSize(400, 50);

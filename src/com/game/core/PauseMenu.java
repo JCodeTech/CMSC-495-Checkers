@@ -73,10 +73,11 @@ public class PauseMenu extends Pane {
     }
 
     public void toggleMenu() {
-        setVisible(!isVisible());
-
-        if (isVisible()) {
-            toFront();
+        if (Controller.gameStarted == true){
+            setVisible(!isVisible());
+            if (isVisible()) {
+                toFront();
+            }
         }
     }
 

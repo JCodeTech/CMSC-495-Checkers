@@ -43,7 +43,6 @@ public class Board {
 	// Red pieces are set at the bottom of the 2D array (rows 5-7).
 	public void newGame() { // Renamed function to newGame from setBoard. setBoard() will be used to set up certain test cases.
 
-		Controller.gameStarted = true;
 		checkerPiece = new Checker[8][8];
 		checkerBoard = new BoardSquare[8][8];
 
