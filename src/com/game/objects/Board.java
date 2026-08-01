@@ -7,12 +7,15 @@
 
 package com.game.objects;
 
+import com.game.core.Controller;
+import com.game.logic.GameRules;
+
 import java.util.Objects;
 
 public class Board {
 
-	private Checker[][] checkerPiece; // Checker Piece
-	private BoardSquare[][] checkerBoard; // Piece of the board.
+	private static Checker[][] checkerPiece; // Checker Piece
+	private static BoardSquare[][] checkerBoard; // Piece of the board.
 	public
 
 	// 1 represents a space a checker piece can be placed.
@@ -50,8 +53,10 @@ public class Board {
 					checkerBoard[i][j] = new BoardSquare("Black", i, j);
 					if (i < 3) {
 						checkerPiece[i][j] = new Checker("Black", false, i, j);
+						GameRules.blackCheckers++;
 					} else if (i >= 5) {
 						checkerPiece[i][j] = new Checker("Red", false, i, j);
+						GameRules.redCheckers++;
 					}
 				} else {
 					checkerBoard[i][j] = new BoardSquare("White", i, j);
@@ -74,8 +79,21 @@ public class Board {
 	} // Returns the black and white squares on the board.
 
 	// Whenever a checker is captured, this method will be called to clear that space.
-	public void clearPosition(int row, int col) {
-			checkerPiece[row][col] = null;
+	public void clearPosition(int row, int col, boolean isCapture) {
+
+		if (isCapture) {
+			Checker cPiece = checkerPiece[row][col];
+			if (cPiece.getColor().equals("Red")) {
+				GameRules.redCheckers--;
+				System.out.println(GameRules.redCheckers);
+				GameRules.isGameOver();
+			} else {
+				GameRules.blackCheckers--;
+				System.out.println(GameRules.blackCheckers);
+				GameRules.isGameOver();
+			}
+		}
+		checkerPiece[row][col] = null;
 	}
 
 	// Whenever a checker makes it to the opponents side.
@@ -129,6 +147,27 @@ public class Board {
 		}
 
 		return null;
+	}
+
+	public void clearSelectedCheckers() {
+		for (Checker[] row : checkerPiece) {
+			for (Checker checker : row) {
+				if (checker != null) {
+					checker.setSelected(false);
+				}
+			}
+		}
+	}
+
+	// Method used for new game
+	public static void clearBoard(){
+		Controller.gameStarted = false;
+		for(int i = 0; i < 8; i++){
+			for (int j = 0; j < 8; j++){
+				checkerPiece[i][j] = null;
+				checkerBoard[i][j] = null; // Need to modify how new game generates board so we do not need to keep regenerating the board pieces.
+			}
+		}
 	}
 
 }

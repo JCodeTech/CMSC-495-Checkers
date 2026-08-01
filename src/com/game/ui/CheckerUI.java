@@ -12,7 +12,7 @@ import com.game.objects.Checker;
 import javafx.scene.shape.Circle;
 import javafx.scene.paint.Color;
 
-public class CheckerUI {
+public class CheckerUI extends Circle{
     private Board board;
     private final Checker checker;
     private final Circle circle;
@@ -20,6 +20,7 @@ public class CheckerUI {
     private final int col;
     private static final double SPACING = 60; // Space between circles
     private static final double CIRCLE_RADIUS = 20;
+    private static CheckerUI selectedChecker;
 
     
     public CheckerUI(Checker checker, Board board, int row, int col) {
@@ -32,13 +33,20 @@ public class CheckerUI {
 
         // Click handler to reference this specific checker UI object.
         circle.setOnMouseClicked(event -> {
-            System.out.println("TEST: The " + checker.getColor() + " Checker at position (" + row + ", " + col + ") has been clicked on.");
-            Checker selectedChecker = board.findSelectedChecker(checker);
-            if (selectedChecker != null) {
-                System.out.println("Found selected object at " + selectedChecker.getRow() + ", " + selectedChecker.getCol());
-                selectedChecker.setSelected(false);
+            System.out.println(
+                    "TEST: The " + checker.getColor()
+                            + " Checker at position (" + row + ", " + col + ") has been clicked on."
+            );
+
+            if (selectedChecker != null && selectedChecker != this) {
+                selectedChecker.getChecker().setSelected(false);
+                selectedChecker.deselected();
             }
+
+            board.clearSelectedCheckers();
             checker.setSelected(true);
+            selected();
+            selectedChecker = this;
         });
     }
 
@@ -76,5 +84,15 @@ public class CheckerUI {
 
     public int getCol() {
         return col;
+    }
+
+    public void selected() {
+        circle.setStroke(Color.GOLD);
+        circle.setStrokeWidth(3);
+    }
+
+    public void deselected() {
+        circle.setStroke(null);
+        circle.setStrokeWidth(0);
     }
 }

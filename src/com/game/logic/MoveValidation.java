@@ -7,6 +7,7 @@
 
 package com.game.logic;
 
+import com.game.core.Controller;
 import com.game.entities.Player;
 import com.game.objects.Board;
 import com.game.objects.BoardSquare;
@@ -62,12 +63,12 @@ public class MoveValidation {
         final int difRow = Math.abs(toRow - fromRow);
         final int difCol = Math.abs(toCol - fromCol);
 
-        /* TEMP REMOVED PLACE BACK IN SERVICE ONCE PLAYER LOGIC IS IN PLACE
         // Check if fromSpace belongs to the player
-        if (!piece.getColor().equals(player.getColor())) {
+        if ((Controller.getPlayerTurn() && piece.getColor().equals("Black")) || (!Controller.getPlayerTurn() && piece.getColor().equals("Red"))) {
+            System.out.println(piece.getColor());
             throw new GameException("Cannot move opponent's Checker");
         }
-        */
+
 
         if (difCol > 2 || difRow > 2){
             throw new GameException("Pieces can only move one to two spaces diagonally.");
