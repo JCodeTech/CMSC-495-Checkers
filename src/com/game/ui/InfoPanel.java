@@ -10,8 +10,9 @@ public class InfoPanel extends Pane {
     public InfoPanel(){
         turnLable = new Label("Red's Turn");
         turnLable.setPrefSize(100,100);
-        turnLable.setLayoutX(601);
+        turnLable.setLayoutX(600);
         turnLable.setLayoutY(0);
+        setMouseTransparent(true);
         getChildren().add(turnLable);
     }
 
