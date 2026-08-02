@@ -12,6 +12,7 @@ import com.game.entities.Player;
 public class Main extends Application {
 
     public static Board board;
+    public static BoardUI boardUI;
 
     @Override
     public void start(Stage primaryStage) {
@@ -29,7 +30,7 @@ public class Main extends Application {
         Player player1 = new Player("Player 1", "Red", true);
         Player player2 = new Player("Player 2", "Black", true);
 
-        BoardUI boardUI = new BoardUI(root, board);
+        boardUI = new BoardUI(root, board);
         InfoPanel turnPanel = new InfoPanel();
 
         MainMenu mainMenu = new MainMenu();
@@ -43,5 +44,9 @@ public class Main extends Application {
 
     public static Board getBoard(){
         return board;
+    }
+
+    public static BoardUI getBoardUI(){
+        return boardUI;
     }
 }
