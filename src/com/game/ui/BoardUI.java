@@ -11,6 +11,7 @@ import com.game.objects.Board;
 import com.game.objects.BoardSquare;
 import com.game.objects.Checker;
 import javafx.scene.layout.Pane;
+import javafx.scene.Node;
 import javafx.scene.shape.Circle;
 
 public class BoardUI {
@@ -61,6 +62,13 @@ public class BoardUI {
                 }
             }
         }
+    }
+
+    public void showGameOverScreen(String winner) {
+        root.getChildren().removeIf(node -> node instanceof GameOverScreen);
+        GameOverScreen gameOverScreen = new GameOverScreen(winner);
+        root.getChildren().add(gameOverScreen);
+        gameOverScreen.toFront();
     }
 
     public CheckerUI getCheckerUI(int row, int col) {

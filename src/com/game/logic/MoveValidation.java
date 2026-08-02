@@ -70,12 +70,12 @@ public class MoveValidation {
         }
 
 
-        if (difCol > 2 || difRow > 2){
+        if (difRow !=1 && difRow != 2){
             throw new GameException("Pieces can only move one to two spaces diagonally.");
         }
 
         // Checks if move is diagonal (Must implement further checks if we implement multiple moves in one validation for multiple captures)
-        if (fromCol == toCol || fromRow == toRow){
+        if (difRow != difCol){
             throw new GameException("Invalid move. You must move your pieces diagonally.");
         }
 

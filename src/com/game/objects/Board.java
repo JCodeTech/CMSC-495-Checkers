@@ -9,14 +9,19 @@ package com.game.objects;
 
 import com.game.core.Controller;
 import com.game.logic.GameRules;
+import com.game.ui.BoardSquareUI;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class Board {
+	private List<Checker> redCheckers = new ArrayList<>();
+	private List<Checker> blackCheckers = new ArrayList<>();
+	private List<BoardSquare> blackSquares = new ArrayList<>();
 
 	private static Checker[][] checkerPiece; // Checker Piece
 	private static BoardSquare[][] checkerBoard; // Piece of the board.
-	public
 
 	// 1 represents a space a checker piece can be placed.
 	// 0 represents a space that a checker piece cannot be placed.
@@ -51,8 +56,10 @@ public class Board {
 
 				if (validBoardSpaces[i][j] == 1) {
 					checkerBoard[i][j] = new BoardSquare("Black", i, j);
+					blackSquares.add(checkerBoard[i][j]);
 					if (i < 3) {
 						checkerPiece[i][j] = new Checker("Black", false, i, j);
+						blackCheckers.add(checkerPiece[i][j]);
 						GameRules.blackCheckers++;
 					} else if (i >= 5) {
 						checkerPiece[i][j] = new Checker("Red", false, i, j);
@@ -85,10 +92,12 @@ public class Board {
 			Checker cPiece = checkerPiece[row][col];
 			if (cPiece.getColor().equals("Red")) {
 				GameRules.redCheckers--;
+				removeChecker(cPiece);
 				System.out.println(GameRules.redCheckers);
 				GameRules.isGameOver();
 			} else {
 				GameRules.blackCheckers--;
+				removeChecker(cPiece);
 				System.out.println(GameRules.blackCheckers);
 				GameRules.isGameOver();
 			}
@@ -167,6 +176,41 @@ public class Board {
 				checkerPiece[i][j] = null;
 				checkerBoard[i][j] = null; // Need to modify how new game generates board so we do not need to keep regenerating the board pieces.
 			}
+		}
+	}
+
+	public static Checker[][] getCheckers(){
+		return checkerPiece;
+	}
+
+	public Checker getChecker(String color, int index){
+		if (color.equals("Red")){
+			return redCheckers.get(index);
+		}
+		return blackCheckers.get(index);
+	}
+
+	public BoardSquare getSpace(int index){
+		return blackSquares.get(index);
+	}
+
+	public int getBCListSize(){
+		return blackCheckers.size();
+	}
+
+	public int getRCListSize(){
+		return redCheckers.size();
+	}
+
+	public int getBoardListSize(){
+		return blackSquares.size();
+	}
+
+	public void removeChecker(Checker checker){
+		if (checker.getColor().equals("Red")){
+			redCheckers.remove(checker);
+		} else {
+			blackCheckers.remove(checker);
 		}
 	}
 

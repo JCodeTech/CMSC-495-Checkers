@@ -41,7 +41,7 @@ public class BoardSquareUI {
             boardSquare.setSelected(true);
 
             try {
-                move.makeMove();
+                move.humanMove();
             } catch (GameException e) {
                 boardSquare.setSelected(false);
                 System.err.println(e.getMessage());
