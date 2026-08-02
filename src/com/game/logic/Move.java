@@ -13,6 +13,8 @@ import com.game.objects.BoardSquare;
 import com.game.objects.Checker;
 import com.game.ui.BoardUI;
 import com.game.util.GameException;
+import javafx.animation.PauseTransition;
+import javafx.util.Duration;
 
 public class Move {
     private final Board board;
@@ -25,9 +27,7 @@ public class Move {
         this.moveValidation = new MoveValidation(board);
     }
 
-    public void makeMove() throws GameException {
-        BoardSquare destination = (BoardSquare) board.findSelected("space");
-        Checker piece = (Checker) board.findSelected("checker");
+    public void makeMove(Checker piece, BoardSquare destination) throws GameException {
 
         moveValidation.validateMove(piece, destination);
 
@@ -50,10 +50,19 @@ public class Move {
             board.promoteToKing(toRow, toCol);
         }
 
-        piece.setSelected(false);
-        destination.setSelected(false);
+        System.out.println("Checker at " + fromRow + ", " + fromCol + " was moved to " + toRow + ", " + toCol);
 
         boardUI.updateCheckerPieceUI();
         Controller.flipTurn();
+
+    }
+
+    public void humanMove() throws GameException{
+        BoardSquare destination = (BoardSquare) board.findSelected("space");
+        Checker piece = (Checker) board.findSelected("checker");
+        makeMove(piece, destination);
+
+        piece.setSelected(false);
+        destination.setSelected(false);
     }
 }
