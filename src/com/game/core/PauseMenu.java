@@ -29,7 +29,6 @@ public class PauseMenu extends Pane {
         Button newGame = new Button("New Game");
 
         newGame.setOnAction(e -> {
-            // Put the method that will set the game to have player opponent here.
             visible = false;
             Board.clearBoard();
             show();
