@@ -11,6 +11,7 @@ import com.game.core.Main;
 import com.game.objects.Board;
 import com.game.objects.BoardSquare;
 import com.game.objects.Checker;
+import com.game.ui.BoardUI;
 import com.game.util.GameException;
 
 import java.util.Random;
@@ -19,23 +20,24 @@ public class AILogic {
     private static Random randInst = new Random();
 
     public static void AITurn() throws GameException {
+
         Board board = Main.getBoard();
+        BoardUI boardUI = Main.getBoardUI();
+        Move move = new Move(board, boardUI);
 
         while(!Controller.player1Turn){
             int checkerNum = randInst.nextInt(board.getBCListSize());
             int spaceNum = randInst.nextInt(board.getBoardListSize());
             Checker piece =  board.getChecker("Black", checkerNum);
             BoardSquare space = board.getSpace(spaceNum);
-            Move move = new Move(board, board.getSpace(spaceNum))
+            try{
+                move.makeMove(piece, space);
+            } catch (GameException e) {
+
+            }
         }
 
 
     }
 
-    /*
-    public int[] ChooseRandSpace(){
-
-
-    }
-*/
 }
