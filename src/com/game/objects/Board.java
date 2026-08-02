@@ -92,10 +92,12 @@ public class Board {
 			Checker cPiece = checkerPiece[row][col];
 			if (cPiece.getColor().equals("Red")) {
 				GameRules.redCheckers--;
+				removeChecker(cPiece);
 				System.out.println(GameRules.redCheckers);
 				GameRules.isGameOver();
 			} else {
 				GameRules.blackCheckers--;
+				removeChecker(cPiece);
 				System.out.println(GameRules.blackCheckers);
 				GameRules.isGameOver();
 			}
@@ -202,6 +204,14 @@ public class Board {
 
 	public int getBoardListSize(){
 		return blackSquares.size();
+	}
+
+	public void removeChecker(Checker checker){
+		if (checker.getColor().equals("Red")){
+			redCheckers.remove(checker);
+		} else {
+			blackCheckers.remove(checker);
+		}
 	}
 
 }
