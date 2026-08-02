@@ -33,7 +33,6 @@ public class MainMenu extends Pane {
     	Button playerStart = new Button("Player vs Player");
     	
     	playerStart.setOnAction(e -> {
-    		// Put the method that will set the game to have player opponent here.
     		Controller.setGameMode(true); // sets the gamemode boolean variable in Controller class to true
 			Controller.gameStarted = true;
 			hide();
@@ -49,7 +48,6 @@ public class MainMenu extends Pane {
     	Button computerStart = new Button("Player vs Computer");
     	
     	computerStart.setOnAction(e -> {
-    		// Put the method that will set the game to have computer opponent here.
 			Controller.setGameMode(false); // sets the gamemode boolean variable in Controller class to false
 			Controller.gameStarted = true;
 			hide();
