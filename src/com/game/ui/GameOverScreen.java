@@ -10,9 +10,9 @@ public class GameOverScreen extends Pane{
 
         // Game Over Label.
         javafx.scene.control.Label gameOverLabel = new javafx.scene.control.Label("Game Over");
-        gameOverLabel.setPrefSize(250, 250);
-        gameOverLabel.setLayoutX(300);
-        gameOverLabel.setLayoutY(50);
+        gameOverLabel.setPrefSize(400, 100);
+        gameOverLabel.setLayoutX(200);
+        gameOverLabel.setLayoutY(80);
         gameOverLabel.isVisible();
         gameOverLabel.setStyle("-fx-font: 50 arial");
         gameOverLabel.toFront();
@@ -24,7 +24,7 @@ public class GameOverScreen extends Pane{
         javafx.scene.control.Label winnerLabel = new javafx.scene.control.Label(winner + " Wins!");
         winnerLabel.setPrefSize(250, 50);
         winnerLabel.setLayoutX(300);
-        winnerLabel.setLayoutY(150);
+        winnerLabel.setLayoutY(200);
         winnerLabel.isVisible();
         winnerLabel.setStyle("-fx-font: 30 arial");
         winnerLabel.toFront();
