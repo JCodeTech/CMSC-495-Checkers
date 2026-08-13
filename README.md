@@ -10,7 +10,6 @@ A Java implementation of the classic Checkers game, featuring both Human vs. Hum
 
 * Joseph Romano - [JCodeTech](https://github.com/JCodeTech)
 * Alexander Egan - [AirQual1ty](https://github.com/AirQual1ty)
-* Pavel Parada - [pavelparada0430-hub](https://github.com/pavelparada0430-hub)
 
 # Project Overview
 
